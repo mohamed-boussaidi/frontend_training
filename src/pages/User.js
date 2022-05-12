@@ -58,29 +58,18 @@ const User = (props) => {
       width: 100,
     },
     {
-      title: "Adresse imme",
-      field: "adresse_imme",
-      sort: "asc",
-      width: 100,
-    },
-    {
       title: "Carte d'identite",
-      field: "carte_identite",
+      field: "cin",
       sort: "asc",
       width: 100,
     },
     {
       title: "Civilite",
-      field: "civilite",
+      field: "sex",
       sort: "asc",
       width: 100,
     },
-    {
-      title: "Code Postal Imme",
-      field: "code_postal_imme",
-      sort: "asc",
-      width: 100,
-    },
+    
     {
       title: "Code Postale",
       field: "code_postale",
@@ -111,7 +100,7 @@ const User = (props) => {
     },
     {
       title: "Email",
-      field: "e_mail",
+      field: "email",
       sort: "asc",
       width: 100,
 
@@ -124,36 +113,8 @@ const User = (props) => {
 
     },
     {
-      title: "Immeuble",
-      field: "immeuble",
-      sort: "asc",
-      width: 100,
-
-    },
-    {
-      title: "Manager",
-      field: "manager",
-      sort: "asc",
-      width: 100,
-
-    },
-    {
       title: "matricule",
       field: "matricule",
-      sort: "asc",
-      width: 100,
-
-    },
-    {
-      title: "Parrain",
-      field: "parrain",
-      sort: "asc",
-      width: 100,
-
-    },
-    {
-      title: "Pole",
-      field: "pole",
       sort: "asc",
       width: 100,
 

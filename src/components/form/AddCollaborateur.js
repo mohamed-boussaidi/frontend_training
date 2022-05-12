@@ -114,10 +114,9 @@ const AddCollaborateur = (props) => {
                 </Col>
                 <Col md="6">
                     <div className="mb-3 templating-select select2-container">
-                        <label className="control-label">Civilité</label>
+                        <label className="control-label">Sexe</label>
                         <Select
                             value={selectedMultiCivilite}
-                            isMulti={true}
                             onChange={() => {
                                 handleSelectedMultiCivilite()
                             }}
@@ -130,6 +129,7 @@ const AddCollaborateur = (props) => {
                 </Col>
             </Row>
             <Row>
+                <Row>
                 <Col md="6">
                     <div className="mb-3">
                         <Label htmlFor="validationCustom03">Nom</Label>
@@ -160,9 +160,11 @@ const AddCollaborateur = (props) => {
                         />
                     </div>
                 </Col>
+                </Row>
+                <Row>
                 <Col md="6">
                     <div className="mb-3">
-                        <Label htmlFor="validationCustom05">Tél(bureau)</Label>
+                        <Label htmlFor="validationCustom05">Télephone</Label>
                         <AvField
                             name="telephone"
                             placeholder="Tél"
@@ -175,8 +177,7 @@ const AddCollaborateur = (props) => {
                         />
                     </div>
                 </Col>
-            </Row>
-            <Row>
+            
                 <Col md="6">
                     <div className="mb-3">
                         <Label htmlFor="validationCustom02">E-Mail</Label>
@@ -192,13 +193,13 @@ const AddCollaborateur = (props) => {
                         />
                     </div>
                 </Col>
-
+</Row>
             </Row>
             <Row>
                 <Col md="6">
                     <div className="mb-3">
                         <label className="form-lable">Carte d'identité</label>
-                        <input type="file" className="form-control form-control-file" data-buttonname="btn-secondary" />
+                        <input type="number" className="form-control form-control-file" data-buttonname="btn-secondary" />
                     </div>
                 </Col>
 
@@ -254,22 +255,6 @@ const AddCollaborateur = (props) => {
                     </div>
                 </Col>
             </Row>
-            <Row>
-                <Col md="12">
-                    <div className="mb-3">
-                        <Label htmlFor="validationCustom01">N°Sécurité Social</Label>
-                        <AvField
-                            name="firstname"
-                            placeholder="Société"
-                            type="text"
-                            errorMessage="SVP Entrez votre Société"
-                            className="form-control"
-                            validate={{ required: { value: true } }}
-                            id="validationCustom01"
-                        />
-                    </div>
-                </Col>
-            </Row>
             <h4 className="card-title" class="d-flex flex-column align-items-center my-2 bg-primary" >CONTRAT</h4>
             <Row>
                 <Col md="6">
@@ -277,7 +262,6 @@ const AddCollaborateur = (props) => {
                         <label className="control-label">Type de Contrat</label>
                         <Select
                             value={selectedMultiContatType}
-                            isMulti={true}
                             onChange={() => {
                                 handleSelectedMultiContatType()
                             }}
@@ -293,7 +277,6 @@ const AddCollaborateur = (props) => {
                         <label className="control-label">Fonction</label>
                         <Select
                             value={selectedMultifonction}
-                            isMulti={true}
                             onChange={() => {
                                 handleMultiSelectedMultifonction()
                             }}
@@ -340,116 +323,7 @@ const AddCollaborateur = (props) => {
                         </div>
                     </div>
                 </Col>
-            </Row>
-            <Row>
-                <Col md="12">
-                    <div className="mb-3 templating-select select2-container">
-                        <label className="control-label">Pole</label>
-                        <Select
-                            value={selectedMultiPole}
-                            isMulti={true}
-                            onChange={() => {
-                                handleSelectedMultiPole()
-                            }}
-                            options={optionGroup4}
-                            classNamePrefix="select2-selection"
-                            closeMenuOnSelect={false}
-                        />
-                    </div>
-                </Col>
-            </Row>
-            <h4 className="card-title" class="d-flex flex-column align-items-center my-2 bg-primary" >RATTACHEMENT</h4>
-            <Row>
-                <Col md="6">
-                    <div className="mb-3 templating-select select2-container">
-                        <label className="control-label">Immeuble</label>
-                        <Select
-                            value={selectedMultiImmeuble}
-                            isMulti={true}
-                            onChange={() => {
-                                handleMultiImmeuble()
-                            }}
-                            options={optionGroup5}
-                            classNamePrefix="select2-selection"
-                            closeMenuOnSelect={false}
-                        />
-                    </div>
-                </Col>
-                <Col md="6">
-                    <div className="mb-3">
-                        <Label htmlFor="validationCustom03">Adresse(IMME)</Label>
-                        <AvField
-                            name="city"
-                            placeholder="Email "
-                            type="text"
-                            errorMessage="  SVP Entrez votre Email."
-                            className="form-control"
-                            validate={{ required: { value: true } }}
-                            id="validationCustom03"
-                        />
-                    </div>
-                </Col>
-            </Row>
-            <Row>
-                <Col md="6">
-                    <div className="mb-3">
-                        <Label htmlFor="validationCustom02">Code Postal</Label>
-                        <AvField
-                            name="lastname"
-                            placeholder="Pole"
-                            type="text"
-                            errorMessage=" SVP entrez votre Pole"
-                            className="form-control"
-                            validate={{ required: { value: true } }}
-                            id="validationCustom02"
-                        />
-                    </div>
-                </Col>
-                <Col md="6">
-                    <div className="mb-3">
-                        <Label htmlFor="validationCustom03">Ville</Label>
-                        <AvField
-                            name="city"
-                            placeholder="Email "
-                            type="text"
-                            errorMessage="  SVP Entrez votre Email."
-                            className="form-control"
-                            validate={{ required: { value: true } }}
-                            id="validationCustom03"
-                        />
-                    </div>
-                </Col>
-            </Row>
-            <Row>
-                <Col md="6">
-                    <div className="mb-3">
-                        <Label htmlFor="validationCustom02">Parrain</Label>
-                        <AvField
-                            name="lastname"
-                            placeholder="Pole"
-                            type="text"
-                            errorMessage=" SVP entrez votre Pole"
-                            className="form-control"
-                            validate={{ required: { value: true } }}
-                            id="validationCustom02"
-                        />
-                    </div>
-                </Col>
-                <Col md="6">
-                    <div className="mb-3">
-                        <Label htmlFor="validationCustom03">Manager</Label>
-                        <AvField
-                            name="city"
-                            placeholder="Email "
-                            type="text"
-                            errorMessage="  SVP Entrez votre Email."
-                            className="form-control"
-                            validate={{ required: { value: true } }}
-                            id="validationCustom03"
-                        />
-                    </div>
-                </Col>
-            </Row>
+            </Row>  
             <Col md="12">
                 <div className="mb-3">
                     <Label htmlFor="validationCustom03">Departement</Label>
@@ -464,52 +338,6 @@ const AddCollaborateur = (props) => {
                     />
                 </div>
             </Col>
-            <h4 className="card-title" class="d-flex flex-column align-items-center my-2 bg-primary" >CONTACT D'URGENCE</h4>
-
-            <Row>
-                <Col md="6">
-                    <div className="mb-3">
-                        <Label htmlFor="validationCustom03">Nom(Vis a Vis)</Label>
-                        <AvField
-                            name="city"
-                            placeholder="Email "
-                            type="text"
-                            errorMessage="  SVP Entrez votre Email."
-                            className="form-control"
-                            validate={{ required: { value: true } }}
-                            id="validationCustom03"
-                        />
-                    </div>
-                </Col>
-                <Col md="6">
-                    <div className="mb-3">
-                        <Label htmlFor="validationCustom03">Tél Portable</Label>
-                        <AvField
-                            name="city"
-                            placeholder="Email "
-                            type="text"
-                            errorMessage="  SVP Entrez votre Email."
-                            className="form-control"
-                            validate={{ required: { value: true } }}
-                            id="validationCustom03"
-                        />
-                    </div>
-                </Col>
-                <Col md="12">
-                    <div className="mb-3">
-                        <Label htmlFor="validationCustom03">Adresse</Label>
-                        <AvField
-                            name="city"
-                            placeholder="Email "
-                            type="text"
-                            errorMessage="  SVP Entrez votre Email."
-                            className="form-control"
-                            validate={{ required: { value: true } }}
-                            id="validationCustom03"
-                        />
-                    </div>
-                </Col>
-            </Row>
             <Col md="50">
 
                 <FormGroup className="mb-0">
