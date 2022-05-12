@@ -254,6 +254,23 @@ const AddCollaborateur = (props) => {
                         />
                     </div>
                 </Col>
+                <Row>
+                <Col md="12">
+                    <div className="mb-3">
+                        <Label htmlFor="validationCustom04">Password</Label>
+                        <AvField
+                            name="password"
+                            placeholder="password"
+                            type="text"
+                            value={props.data?props.data.code_postale:null}
+                            errorMessage="SVP Entrez votre Code Postal."
+                            className="form-control"
+                            validate={{ required: { value: true } }}
+                            id="validationCustom04"
+                        />
+                    </div>
+                </Col>
+                </Row>
             </Row>
             <h4 className="card-title" class="d-flex flex-column align-items-center my-2 bg-primary" >CONTRAT</h4>
             <Row>

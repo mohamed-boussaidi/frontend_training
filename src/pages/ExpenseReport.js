@@ -30,12 +30,6 @@ const Expensereport = (props) => {
   const data = {
     columns: [
       {
-        label: "Matricule",
-        field: "name",
-        sort: "asc",
-        width: 150,
-      },
-      {
         label: "Demandateur",
         field: "position",
         sort: "asc",
@@ -43,25 +37,13 @@ const Expensereport = (props) => {
       },
       {
         label: "Date demande",
-        field: "office",
+        field: "Date demande",
         sort: "asc",
         width: 200,
       },
       {
         label: "Type de dépense",
-        field: "age",
-        sort: "asc",
-        width: 100,
-      },
-      {
-        label: "Titre",
-        field: "date",
-        sort: "asc",
-        width: 150,
-      },
-      {
-        label: "Ref justification",
-        field: "salary",
+        field: "type_de_depense",
         sort: "asc",
         width: 100,
       },
@@ -71,12 +53,7 @@ const Expensereport = (props) => {
         sort: "asc",
         width: 100,
       },
-      {
-        label: "TVA",
-        field: "salary",
-        sort: "asc",
-        width: 100,
-      },
+ 
       {
         label: "Client",
         field: "salary",
