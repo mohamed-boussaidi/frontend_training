@@ -22,6 +22,7 @@ import { setBreadcrumbItems } from "../store/actions";
 import Popup from "components/Popup";
 import CollaborateurService from "../api/CollaborateurService";
 import AddCollaborateur from "../components/form/AddCollaborateur";
+import moment from "moment";
 import MaterialTable from "material-table";
 
 const User = (props) => {
@@ -34,7 +35,11 @@ const User = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-  const handleClose = () => setOpenModal(false);
+  const handleClose = () =>
+  {
+    setOpenModal(false)
+    setUser(null)
+  }
   const handleShow = () => setOpenModal(true);
   const columns= [
     {
@@ -47,6 +52,14 @@ const User = (props) => {
     {
       title: "Prénom",
       field: "prenom",
+      sort: "asc",
+      width: 100,
+
+    },
+    {
+      render: rowData => <div> {moment(rowData.date_naissance).format("YYYY-MM-DD")}</div>,
+      title: "Date de naissance",
+      field: "date_naissance",
       sort: "asc",
       width: 100,
 
@@ -65,11 +78,11 @@ const User = (props) => {
     },
     {
       title: "Civilite",
-      field: "sex",
+      field: "sexe",
       sort: "asc",
       width: 100,
     },
-    
+
     {
       title: "Code Postale",
       field: "code_postale",
@@ -78,6 +91,7 @@ const User = (props) => {
 
     },
     {
+      render: rowData => <div> {moment(rowData.date_entree).format("YYYY-MM-DD")}</div>,
       title: "Date entree",
       field: "date_entree",
       sort: "asc",
@@ -85,6 +99,7 @@ const User = (props) => {
 
     },
     {
+      render: rowData => <div> {moment(rowData.date_sortie).format("YYYY-MM-DD")}</div>,
       title: "Date Sortie",
       field: "date_sortie",
       sort: "asc",
@@ -165,7 +180,11 @@ const User = (props) => {
         setLoading(false)
       }
   }
-  
+  function onRefresh(){
+    getUsers()
+    handleClose()
+  }
+
   useEffect( () => {
     getUsers()
     props.setBreadcrumbItems('Gestion des collaborateurs', breadcrumbItems)
@@ -221,7 +240,9 @@ const User = (props) => {
              title={"Ajouter Utilisateur"}
              class="text-center"
       >
-    <AddCollaborateur data={user}></AddCollaborateur>
+    <AddCollaborateur data={user}
+                      onRefresh={onRefresh}>
+    </AddCollaborateur>
       </Popup>
 
     </React.Fragment>

@@ -3,39 +3,30 @@ import {AvField, AvForm} from "availity-reactstrap-validation";
 import Select from "react-select";
 import React, {useState} from "react";
 import {withRouter} from "react-router-dom";
+import CollaborateurService from "../../api/CollaborateurService";
+import moment from "moment";
 
 const AddCollaborateur = (props) => {
 
 
-    const [selectedMultiCivilite, setSelectedMultiCivilite] = useState(props.civilite)
+    const [selectedMultiCivilite, setSelectedMultiCivilite] = useState({label: props.data?props.data.sexe:null, value: props.data?props.data.sexe:null})
 
     function handleSelectedMultiCivilite(civilite) {
         setSelectedMultiCivilite(civilite)
     }
 
-    const [selectedMultiContatType, setselectedMultiContatType] = useState(props.type_contrat)
+    const [selectedMultiContatType, setselectedMultiContatType] = useState({label: props.data?props.data.type_contrat:null, value: props.data?props.data.type_contrat:null})
 
     function handleSelectedMultiContatType(type_contrat) {
         setselectedMultiContatType(type_contrat)
     }
 
-    const [selectedMultifonction, setselectedMultifonction] = useState(props.fonction)
+    const [selectedMultifonction, setselectedMultifonction] = useState({label: props.data?props.data.fonction:null, value: props.data?props.data.fonction:null})
 
     function handleMultiSelectedMultifonction(selectedMulti1) {
         setselectedMultifonction(selectedMulti1)
     }
 
-    const [selectedMultiPole, setselectedMultiPole] = useState(props.pole)
-
-    function handleSelectedMultiPole(selectedMulti4) {
-        setselectedMultiPole(selectedMulti4)
-    }
-
-    const [selectedMultiImmeuble, setselectedMultiImmeuble] = useState(props.immeuble)
-
-    function handleMultiImmeuble(immeuble) {
-        setselectedMultiImmeuble(immeuble)
-    }
 
     const optionGroup1 = [
         {
@@ -70,31 +61,44 @@ const AddCollaborateur = (props) => {
             ]
         },
     ]
-    const optionGroup4 = [
-        {
-            label: "Pole",
-            options: [
-                {label: "Développeur", value: "Développeur"},
-                {label: "Support technique", value: "Support technique"},
-                {label: "Equipe RH", value: "Equipe RH"},
 
-            ]
-        },
-    ]
-    const optionGroup5 = [
-        {
-            label: "Immeuble",
-            options: [
-                {label: "France", value: "France"},
-                {label: "Hi tech Center", value: "Hi tech Center"},
-                {label: "Tunis", value: "Tunis"},
+    async function addCollaborateurAction(event, values){
+        console.log(values)
+        if(props.data){
+            try {
+                values.id=props.data.id
+                values.fonction=selectedMultifonction.value
+                values.sexe=selectedMultiCivilite.value
+                values.type_contrat=selectedMultiContatType.value
+                const response=await CollaborateurService.UpdateCollaborateurs(values)
+                if(response.status===200){
+                    props.onRefresh()
 
-            ]
-        },
-    ]
+                }
 
+            }catch (e) {
+
+            }
+        }else{
+            try {
+                values.fonction=selectedMultifonction.value
+                values.sexe=selectedMultiCivilite.value
+                values.type_contrat=selectedMultiContatType.value
+                const response=await CollaborateurService.addCollaborateurs(values)
+                if(response.status===200){
+                    props.onRefresh()
+                }
+            }catch (e) {
+
+            }
+        }
+    }
     return (
-        <AvForm className="needs-validation">
+        <AvForm className="needs-validation"
+                onValidSubmit={(e, v) => {
+                    addCollaborateurAction(e, v)
+                }}
+        >
             <h4 className="card-title" class="d-flex flex-column align-items-center my-2 bg-primary" >COORDONNEES </h4>
             <Row>
                 <Col md="6">
@@ -117,8 +121,8 @@ const AddCollaborateur = (props) => {
                         <label className="control-label">Sexe</label>
                         <Select
                             value={selectedMultiCivilite}
-                            onChange={() => {
-                                handleSelectedMultiCivilite()
+                            onChange={(e) => {
+                                handleSelectedMultiCivilite(e)
                             }}
                             options={optionGroup2}
                             classNamePrefix="select2-selection"
@@ -182,10 +186,10 @@ const AddCollaborateur = (props) => {
                     <div className="mb-3">
                         <Label htmlFor="validationCustom02">E-Mail</Label>
                         <AvField
-                            name="e_mail"
+                            name="email"
                             placeholder="Email"
                             type="text"
-                            value={props.data?props.data.e_mail:null}
+                            value={props.data?props.data.email:null}
                             errorMessage="SVP Entrez votre Email"
                             className="form-control"
                             validate={{ required: { value: true } }}
@@ -199,7 +203,13 @@ const AddCollaborateur = (props) => {
                 <Col md="6">
                     <div className="mb-3">
                         <label className="form-lable">Carte d'identité</label>
-                        <input type="number" className="form-control form-control-file" data-buttonname="btn-secondary" />
+                        <AvField
+                            name={"cin"}
+                            value={props.data?props.data.cin:null}
+                            type="text"
+                            className="form-control form-control-file"
+                            data-buttonname="btn-secondary"
+                        />
                     </div>
                 </Col>
 
@@ -208,14 +218,14 @@ const AddCollaborateur = (props) => {
                         <label
                             htmlFor="example-date-input"
                         >
-                            Date de  Naissance
+                            Date de Naissance
                         </label>
                         <div className="col-md-13">
-                            <input
+                            <AvField
                                 name={'date_naissance'}
                                 className="form-control"
                                 type="date"
-                                value={props.data?props.data.date_naissance:null}
+                                value={props.data?moment(props.data.date_naissance).format("YYYY-MM-DD") :null}
                                 id="example-date-input"
                             />
                         </div>
@@ -254,23 +264,43 @@ const AddCollaborateur = (props) => {
                         />
                     </div>
                 </Col>
-                <Row>
-                <Col md="12">
+                <Col md="6">
                     <div className="mb-3">
-                        <Label htmlFor="validationCustom04">Password</Label>
+                        <Label htmlFor="validationCustom04">Ville</Label>
                         <AvField
-                            name="password"
-                            placeholder="password"
+                            name="ville"
+                            placeholder="Ville"
                             type="text"
-                            value={props.data?props.data.code_postale:null}
-                            errorMessage="SVP Entrez votre Code Postal."
+                            value={props.data?props.data.ville:null}
+                            errorMessage="SVP Entrez votre ville."
                             className="form-control"
                             validate={{ required: { value: true } }}
                             id="validationCustom04"
                         />
                     </div>
                 </Col>
-                </Row>
+                {props.data
+                ?
+                <></>
+                :
+                    <Row>
+                        <Col md="6">
+                            <div className="mb-3">
+                                <Label htmlFor="validationCustom04">Password</Label>
+                                <AvField
+                                    name="password"
+                                    placeholder="password"
+                                    type="text"
+                                    errorMessage="SVP Entrez votre Password."
+                                    className="form-control"
+                                    validate={{ required: { value: true } }}
+                                    id="validationCustom04"
+                                />
+                            </div>
+                        </Col>
+                    </Row>
+                }
+
             </Row>
             <h4 className="card-title" class="d-flex flex-column align-items-center my-2 bg-primary" >CONTRAT</h4>
             <Row>
@@ -279,8 +309,8 @@ const AddCollaborateur = (props) => {
                         <label className="control-label">Type de Contrat</label>
                         <Select
                             value={selectedMultiContatType}
-                            onChange={() => {
-                                handleSelectedMultiContatType()
+                            onChange={(e) => {
+                                handleSelectedMultiContatType(e)
                             }}
                             options={optionGroup1}
                             classNamePrefix="select2-selection"
@@ -294,8 +324,8 @@ const AddCollaborateur = (props) => {
                         <label className="control-label">Fonction</label>
                         <Select
                             value={selectedMultifonction}
-                            onChange={() => {
-                                handleMultiSelectedMultifonction()
+                            onChange={(e) => {
+                                handleMultiSelectedMultifonction(e)
                             }}
                             options={optionGroup3}
                             classNamePrefix="select2-selection"
@@ -314,11 +344,11 @@ const AddCollaborateur = (props) => {
                             Date d'entree
                         </label>
                         <div className="col-md-13">
-                            <input
+                            <AvField
                                 className="form-control"
                                 type="date"
-                                defaultValue="2019-08-19"
-                                id="example-date-input"
+                                name={"date_entree"}
+                                value={props.data?moment(props.data.date_entree).format("YYYY-MM-DD") :null}
                             />
                         </div>
                     </div>
@@ -331,11 +361,11 @@ const AddCollaborateur = (props) => {
                             Date de Sortie
                         </label>
                         <div className="col-md-13">
-                            <input
+                            <AvField
+                                name={"date_sortie"}
                                 className="form-control"
                                 type="date"
-                                defaultValue="2019-08-19"
-                                id="example-date-input"
+                                value={props.data?moment(props.data.date_sortie).format("YYYY-MM-DD") :null}
                             />
                         </div>
                     </div>
@@ -345,10 +375,11 @@ const AddCollaborateur = (props) => {
                 <div className="mb-3">
                     <Label htmlFor="validationCustom03">Departement</Label>
                     <AvField
-                        name="city"
-                        placeholder="Email "
+                        name="departement"
+                        placeholder="Departement"
                         type="text"
-                        errorMessage="  SVP Entrez votre Email."
+                        value={props.data?props.data.departement:null}
+                        errorMessage="  SVP Entrez votre Departement."
                         className="form-control"
                         validate={{ required: { value: true } }}
                         id="validationCustom03"
@@ -360,8 +391,8 @@ const AddCollaborateur = (props) => {
                 <FormGroup className="mb-0">
                     <div>
                         <Button type="submit" color="primary" className="ms-1">
-                            Enregistrer
-                        </Button>{" "}
+                            {props.data?"Mise a jour":"Ajouter"}
+                        </Button>
                         <Button type="reset" color="secondary" href="/user">
                             Annuler
                         </Button>

@@ -22,7 +22,7 @@ function UpdateCollaborateurs(data){
 }
 
 function deleteCollaborateurs(id){
-    return axiosInstance.put('/deleteCollaborateurs/'+id)
+    return axiosInstance.delete('/deleteCollaborateurs/'+id)
 }
 
 export default {

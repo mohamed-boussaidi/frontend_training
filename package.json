@@ -45,7 +45,7 @@
     "mdbreact": "^4.14.0",
     "metismenujs": "^1.2.1",
     "mkdirp": "^1.0.4",
-    "moment": "2.29.1",
+    "moment": "^2.29.1",
     "moment-timezone": "^0.5.32",
     "multiselect-react-dropdown": "^2.0.21",
     "nouislider-react": "^3.3.9",
