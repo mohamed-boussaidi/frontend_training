@@ -17,17 +17,20 @@ import logoLightPng from "../../assets/images/logo-light.png"
 import logoDark from "../../assets/images/spoc.png"
 
 const Login = props => {
+  const [errorMessage,setErrorMessage]=useState(null)
 
-  async function loginAction   (event, values) {
-   const reponse = await UserService.login(values)
-   console.log(reponse)
-   if(reponse.status===200){
-     const data =JSON.stringify({token:reponse.data.token})
-     localStorage.setItem("authUser",data)
-     props.history.push('/')
-   }
+  function loginAction   (event, values) {
+
+    UserService.login(values).then(reponse=>{
+      const data =JSON.stringify({token:reponse.data.token})
+      localStorage.setItem("authUser",data)
+      props.history.push('/')
+    }).catch(e=>{
+      setErrorMessage("Invalid email or password !")
+
+    })
+
   }
-
 
 
 
@@ -82,6 +85,13 @@ const Login = props => {
                           placeholder="Entrez votre mot de passe"
                         />
                       </div>
+                      <div className={"col-12 text-center"}>
+                        <b
+                            className=" text-danger "
+                        >
+                          {errorMessage}
+                        </b>
+                      </div>
 
                       <div className="mb-3 row mt-4">
                         <div className="col-6">
@@ -99,6 +109,7 @@ const Login = props => {
                             </label>
                           </div>
                         </div>
+
                         <div className="col-6 text-end">
                           <button className="btn btn-primary w-md waves-effect waves-light" type="submit">connection</button>
                         </div>
