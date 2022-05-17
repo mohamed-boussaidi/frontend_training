@@ -21,7 +21,6 @@ import LockScreen from "../pages/AuthenticationInner/auth-lock-screen"
 import Dashboard from "../pages/Dashboard/index"
 import User from "../pages/User" 
 import ExpenseReport from "../pages/ExpenseReport"
-import Leave from "../pages/Leave"
 import Hall from "../pages/Hall"
 import Mobile from "../pages/Mobile"
 import PC from "../pages/PC"
@@ -30,15 +29,16 @@ import Formulaire from "pages/Formulaire"
 
 import Pages404 from "../pages/Extra Pages/pages-404";
 import Pages500 from "../pages/Extra Pages/pages-500";
+import Conge from "../pages/Conge";
 
 const userRoutes = [
   { path: "/dashboard", component: Dashboard },
   // // //profile
   { path: "/logout", component: Logout },
   { path: "/profile", component: UserProfile },
+  { path: "/conge", component: Conge },
   { path: "/user", component: User },
   { path: "/ExpenseReport", component: ExpenseReport },
-  { path: "/leave", component: Leave },
   { path: "/Hall", component: Hall },
   { path: "/Mobile", component: Mobile },
   { path: "/PC", component: PC },
