@@ -26,12 +26,11 @@ import moment from "moment";
 import MaterialTable from "material-table";
 
 const Conge = (props) => {
-  const [conges, setConges] = useState([]);
   const breadcrumbItems = [
     { title: "SPOC", link: "#" },
     { title: "Conges", link: "#" }
   ]
-
+  const [conges, setConges] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [conge, setConge] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -47,6 +46,7 @@ const Conge = (props) => {
       field: "Demandateur",
       sort: "asc",
       width: 100,
+      render :rowData => <b>{rowData.collaborateur.nom+" "+rowData.collaborateur.prenom}</b>
 
     },
   
@@ -89,7 +89,29 @@ const Conge = (props) => {
       width: 100,
 
     },
+    {
+      title: "Status",
+      field: "status",
+      sort: "asc",
+      width: 100,
+      render:rowData=> <span className={rowData.status==="pendding"?"badge bg-warning ":rowData.status==="accepted"?"badge bg-success":"badge bg-danger" }> <h5>{rowData.status}</h5></span>
+
+    },
   ]
+
+  async function AcceptConge(id){
+    const response = await CongeService.AcceptConge(id)
+    if(response.status===200){
+      onRefresh()
+        }
+  }
+  async function RefuseConge(id){
+    const response = await CongeService.RefuseConge(id)
+    if(response.status===200){
+      onRefresh()
+
+    }
+  }
 
   async function activateEditPopup(id){
     const response = await CongeService.getConge(id)
@@ -100,10 +122,21 @@ const Conge = (props) => {
   }
   const actions = [
     {
+      icon: 'check',
+      tooltip: 'Accepter Conge',
+      onClick: (event, rowData) => AcceptConge(rowData.id)
+    },
+    {
+      icon: 'clear',
+      tooltip: 'Refuser Conge',
+      onClick: (event, rowData) => RefuseConge(rowData.id)
+    },
+    {
       icon: 'edit',
       tooltip: 'Edit Conge',
       onClick: (event, rowData) => activateEditPopup(rowData.id)
-    }
+    },
+
   ]
   async function  getConges(){
     setLoading(true)
