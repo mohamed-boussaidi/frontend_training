@@ -13,6 +13,9 @@ function addCollaborateurs(data){
 function getAllCollaborateurs(){
     return axiosInstance.get('/collaborateurs')
 }
+function StatCollaborateurs(){
+    return axiosInstance.get('/statcollaborateurs')
+}
 
 function getCollaborateur(id){
     return axiosInstance.get('/getCollaborateurs/'+id)
@@ -32,6 +35,7 @@ export default {
     UpdateCollaborateurs,
     getAllCollaborateurs,
     addCollaborateurs,
-    getCollaborateur
+    getCollaborateur,
+    StatCollaborateurs
 
 }
