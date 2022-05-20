@@ -120,12 +120,19 @@ const SidebarContent = props => {
               </Link>
             </li>
             <li>
-              <Link to="/Hall" className=" waves-effect">
+              <Link to="/#" className="has-arrow waves-effect">
                 <i className="mdi mdi-application-settings"></i>
-                <span>{props.t("Hall")}</span>
+                <span>{props.t("Salle")}</span>
               </Link>
-            </li>
-            <li className="menu-title">{props.t("Informatique")} </li>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/Reservation">{props.t("Liste de resérvation")}</Link>
+                </li>
+                <li>
+                  <Link to="/Salle">{props.t("les Salles")}</Link>
+                </li>
+              </ul>
+              </li>
             <li>
               <Link to="/#" className="has-arrow waves-effect">
                 <i className="mdi mdi-desktop-tower-monitor"></i>
@@ -133,10 +140,10 @@ const SidebarContent = props => {
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/Mobile">{props.t("Mobile")}</Link>
+                  <Link to="/Orders">{props.t("Liste des demandes")}</Link>
                 </li>
                 <li>
-                  <Link to="/PC">{props.t("PC")}</Link>
+                  <Link to="/Product">{props.t("Les materiels")}</Link>
                 </li>
               </ul>
               </li>

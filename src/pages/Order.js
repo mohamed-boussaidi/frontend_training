@@ -13,31 +13,32 @@ import {
   Label,
   Input,
 } from "reactstrap"
+import OrderService from "../api/OrderService";
 
 import { connect } from "react-redux";
 import Select from 'react-select'
+import AddOrder from "../components/form/AddOrder";
 
 //Import Action to copy breadcrumb items from local state to redux state
 import { setBreadcrumbItems } from "../store/actions";
 import Popup from "components/Popup";
-import CongeService from "../api/CongeService";
-import AddConge from "../components/form/AddConge";
 import moment from "moment";
+import {getProductListFromArray} from "../utlis/functions";
 import MaterialTable from "material-table";
 
-const Conge = (props) => {
+const orders = (props) => {
   const breadcrumbItems = [
     { title: "SPOC", link: "#" },
-    { title: "Conges", link: "#" }
+    { title: "Note de frais", link: "#" }
   ]
-  const [conges, setConges] = useState([]);
+  const [orders, setOrders ] = useState([]);
   const [openModal, setOpenModal] = useState(false);
-  const [conge, setConge] = useState(null);
+  const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(false);
   const handleClose = () =>
   {
     setOpenModal(false)
-    setConge(null)
+    setOrder(null)
   }
   const handleShow = () => setOpenModal(true);
   const columns= [
@@ -49,44 +50,20 @@ const Conge = (props) => {
       render :rowData => <b>{rowData.collaborateur.nom+" "+rowData.collaborateur.prenom}</b>
 
     },
-  
     {
-      render: rowData => <div> {moment(rowData.date_naissance).format("YYYY-MM-DD")}</div>,
+      render: rowData => <div> {moment(rowData.created_at).format("YYYY-MM-DD")}</div>,
       title: "Date de demande",
-      field: "date_demande",
-      sort: "asc",
-      width: 100,
-
-    },
-    
-    {
-      render: rowData => <div> {moment(rowData.date_entree).format("YYYY-MM-DD")}</div>,
-      title: "Date de debut",
-      field: "date_debut",
+      field: "created_at",
       sort: "asc",
       width: 100,
 
     },
     {
-      render: rowData => <div> {moment(rowData.date_sortie).format("YYYY-MM-DD")}</div>,
-      title: "Date de fin",
-      field: "date_fin",
+      title: "Produits",
+      field: "products",
       sort: "asc",
       width: 100,
-
-    },
-    {
-      title: "Nombre de jours",
-      field: "nbr_jrs",
-      sort: "asc",
-      width: 100,
-
-    },
-    {
-      title: "Type de congé",
-      field: "type_conge",
-      sort: "asc",
-      width: 100,
+      render: rowData => <div> {getProductListFromArray(rowData.products)}</div>,
 
     },
     {
@@ -99,14 +76,14 @@ const Conge = (props) => {
     },
   ]
 
-  async function AcceptConge(id){
-    const response = await CongeService.AcceptConge(id)
+  async function acceptOrder(id){
+    const response = await OrderService.acceptorder(id)
     if(response.status===200){
       onRefresh()
         }
   }
-  async function RefuseConge(id){
-    const response = await CongeService.RefuseConge(id)
+  async function rejectOrder(id){
+    const response = await OrderService.rejectorder(id)
     if(response.status===200){
       onRefresh()
 
@@ -114,46 +91,46 @@ const Conge = (props) => {
   }
 
   async function activateEditPopup(id){
-    const response = await CongeService.getConge(id)
+    const response = await ExpenseService.getorder(id)
     if(response.status===200){
-      setConge(response.data)
+      setOrder(response.data)
       handleShow()
     }
   }
   const actions = [
     {
       icon: 'check',
-      tooltip: 'Accepter Conge',
-      onClick: (event, rowData) => AcceptConge(rowData.id)
+      tooltip: 'Accept Expense',
+      onClick: (event, rowData) => acceptOrder(rowData.id)
     },
     {
       icon: 'clear',
-      tooltip: 'Refuser Conge',
-      onClick: (event, rowData) => RefuseConge(rowData.id)
+      tooltip: 'Reject Expense',
+      onClick: (event, rowData) => rejectOrder(rowData.id)
     },
     {
       icon: 'edit',
-      tooltip: 'Edit Conge',
+      tooltip: 'Edit Order',
       onClick: (event, rowData) => activateEditPopup(rowData.id)
     },
 
   ]
-  async function  getConges(){
+  async function  getOrders(){
     setLoading(true)
-    const response = await CongeService.getAllConges()
+    const response = await OrderService.orders()
       if(response.status===200){
-        setConges(response.data)
+        setOrders(response.data)
         setLoading(false)
       }
   }
   function onRefresh(){
-    getConges()
+    getOrders()
     handleClose()
   }
 
   useEffect( () => {
-    getConges()
-    props.setBreadcrumbItems('Gestion des conges', breadcrumbItems)
+    getOrders()
+    props.setBreadcrumbItems('Gestion des demandes materiels', breadcrumbItems)
   }, [])
   return (
     <React.Fragment>
@@ -168,9 +145,9 @@ const Conge = (props) => {
             </div>
             <CardBody>
               <MaterialTable
-                  title={"Conges"}
+                  title={"Expenses"}
                   columns={columns}
-                  data={conges}
+                  data={orders}
                   actions={actions}
                   isLoading={loading}
                   editable={{
@@ -178,9 +155,9 @@ const Conge = (props) => {
                         new Promise((resolve, reject) => {
                           setLoading(true)
                           setTimeout(() => {
-                            CongeService.deleteConges(oldData.id).then(response => {
+                            OrderService.deleteorder(oldData.id).then(response => {
                               if (response.status === 200 || response.status === 201) {
-                                getConges()
+                                getOrders()
                                 setLoading(false)
                               }
                             }).catch(response => {
@@ -250,13 +227,13 @@ const Conge = (props) => {
              title={"Ajouter Congé"}
              class="text-center"
       >
-    <AddConge data={conge}
+ <AddOrder data={order}
                       onRefresh={onRefresh}>
-    </AddConge>
+    </AddOrder>
       </Popup>
 
     </React.Fragment>
   )
 }
 
-export default connect(null, { setBreadcrumbItems })(Conge);
+export default connect(null, { setBreadcrumbItems })(orders);

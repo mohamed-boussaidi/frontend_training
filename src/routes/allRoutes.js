@@ -21,15 +21,21 @@ import LockScreen from "../pages/AuthenticationInner/auth-lock-screen"
 import Dashboard from "../pages/Dashboard/index"
 import User from "../pages/User" 
 import ExpenseReport from "../pages/ExpenseReport"
-import Hall from "../pages/Hall"
+import Salle from "../pages/Salle"
 import Mobile from "../pages/Mobile"
 import PC from "../pages/PC"
 import Formulaire from "pages/Formulaire"
+import Products from "pages/Products"
+import Order from "pages/Order"
+//import demandeMateriel from "pages/demandeMateriel"
+
 
 
 import Pages404 from "../pages/Extra Pages/pages-404";
 import Pages500 from "../pages/Extra Pages/pages-500";
 import Conge from "../pages/Conge";
+import Reservation from "../pages/Reservation";
+
 
 const userRoutes = [
   { path: "/dashboard", component: Dashboard },
@@ -39,10 +45,15 @@ const userRoutes = [
   { path: "/conge", component: Conge },
   { path: "/user", component: User },
   { path: "/ExpenseReport", component: ExpenseReport },
-  { path: "/Hall", component: Hall },
-  { path: "/Mobile", component: Mobile },
-  { path: "/PC", component: PC },
+  { path: "/Salle", component: Salle },
   { path: "/formulaire", component: Formulaire },
+  { path: "/Product", component: Products },
+  { path: "/Reservation", component: Reservation },
+  { path: "/Orders", component: Order },
+
+  
+  
+
 
 
 
