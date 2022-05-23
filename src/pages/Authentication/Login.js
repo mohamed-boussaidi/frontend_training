@@ -22,7 +22,7 @@ const Login = props => {
   function loginAction   (event, values) {
 
     UserService.login(values).then(reponse=>{
-      const data =JSON.stringify({token:reponse.data.token})
+      const data =JSON.stringify({token:reponse.data.token,role:reponse.data.role})
       localStorage.setItem("authUser",data)
       props.history.push('/')
     }).catch(e=>{

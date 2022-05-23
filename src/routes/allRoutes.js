@@ -41,7 +41,6 @@ const userRoutes = [
   { path: "/dashboard", component: Dashboard },
   // // //profile
   { path: "/logout", component: Logout },
-  { path: "/profile", component: UserProfile },
   { path: "/conge", component: Conge },
   { path: "/user", component: User },
   { path: "/ExpenseReport", component: ExpenseReport },
@@ -50,6 +49,7 @@ const userRoutes = [
   { path: "/Product", component: Products },
   { path: "/Reservation", component: Reservation },
   { path: "/Orders", component: Order },
+  { path: "/profile", component: UserProfile },
 
   
   
@@ -68,6 +68,7 @@ const authRoutes = [
   { path: "/forgot-password", component: ForgetPwd },
   { path: "/register", component: Register },
 
+
   { path: "/pages-404", component: Pages404 },
   { path: "/pages-500", component: Pages500 },
 
@@ -78,4 +79,8 @@ const authRoutes = [
   { path: "/auth-lock-screen", component: LockScreen },
 ]
 
-export { userRoutes, authRoutes }
+const collaborateurRoutes = [
+  { path: "/profile", component: UserProfile },
+]
+
+export { userRoutes, authRoutes ,collaborateurRoutes }

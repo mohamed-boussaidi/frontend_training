@@ -28,7 +28,7 @@ const PagesDirectory = (props) => {
     ]
 
     useEffect(() => {
-        props.setBreadcrumbItems('Directory', breadcrumbItems)
+        props.setBreadcrumbItems()
     },[])
 
     const users = [
@@ -46,17 +46,17 @@ const PagesDirectory = (props) => {
 
     return (
         <React.Fragment>
+            <Col lg={12} className={"p-0"}>
+                <CardUser users={users} />
+            </Col>
             <MetaTags>
                 <title>Directory | Lexa - Responsive Bootstrap 5 Admin Dashboard</title>
             </MetaTags>
             <Row>
-        <Col xl="5">
-          <FormValidations />
+        <Col lg={12}>
         </Col>
 
-        <Col xl="7">
-        <CardUser users={users} />
-        </Col>
+
 
       </Row>
            

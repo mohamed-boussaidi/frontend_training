@@ -10,6 +10,7 @@ function Authmiddleware  ({
   path :path,
   ...rest
 }){
+
     const userData  = localStorage.getItem("authUser")?JSON.parse(localStorage.getItem("authUser")):null
   return (
   <Route
@@ -38,6 +39,12 @@ function Authmiddleware  ({
                     <Redirect
                         to={{pathname: "/login"}}
                     />
+                )
+            }else if(userData.role!=="admin") {
+                return (
+                    <Redirect
+                    to={{pathname: "/profile"}}
+                />
                 )
             }else{
                 return (

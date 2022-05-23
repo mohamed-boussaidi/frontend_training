@@ -99,7 +99,7 @@ const FormValidations = (props) => {
       </MetaTags>
 
       <Row>
-        <Col xl="6">
+        <Col xl="12" md={12}>
           <Card>
             <CardBody>
               <h4 className="card-title">React Validation - Normal</h4>
