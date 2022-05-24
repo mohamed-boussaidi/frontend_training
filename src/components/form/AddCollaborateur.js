@@ -5,9 +5,45 @@ import React, {useState} from "react";
 import {withRouter} from "react-router-dom";
 import CollaborateurService from "../../api/CollaborateurService";
 import moment from "moment";
+import ImageCropper from "../ImageCropper";
+import {dataURLtoFile} from "../../utlis/functions";
 
 const AddCollaborateur = (props) => {
+    const [blob, setBlob] = useState(null)
+    const [inputImg, setInputImg] = useState('')
+    const [cropend, setCropend] = useState(true)
 
+    const getBlob = (blob) => {
+        setBlob(blob)
+    }
+
+
+
+    const onInputChange = (e) => {
+        // convert image file to base64 string
+        const file = e.target.files[0]
+        const reader = new FileReader()
+
+        reader.addEventListener('load', () => {
+            setInputImg(reader.result)
+        }, false)
+
+        if (file) {
+            reader.readAsDataURL(file)
+        }
+        setCropend(false)
+    }
+
+    const handleSubmitImage = (e) => {
+        setCropend(true)
+
+    }
+    const RemoveImage = (e) => {
+        setCropend(true)
+        setBlob(null)
+        setInputImg('')
+
+    }
 
     const [selectedMultiCivilite, setSelectedMultiCivilite] = useState({label: props.data?props.data.sexe:null, value: props.data?props.data.sexe:null})
 
@@ -63,17 +99,26 @@ const AddCollaborateur = (props) => {
     ]
 
     async function addCollaborateurAction(event, values){
-        console.log(values)
+        var image=null
+        if (blob) {
+            let data = new FormData();
+            var file = dataURLtoFile(blob,'image.jpeg');
+            data.append('image', file);
+            const response = await CollaborateurService.uploadImage(data)
+            if (response.status === 200) {
+                image = response.data.image
+            }
+        }
         if(props.data){
             try {
                 values.id=props.data.id
                 values.fonction=selectedMultifonction.value
                 values.sexe=selectedMultiCivilite.value
                 values.type_contrat=selectedMultiContatType.value
+                values.image=image?image:props.data.image
                 const response=await CollaborateurService.UpdateCollaborateurs(values)
                 if(response.status===200){
                     props.onRefresh()
-
                 }
 
             }catch (e) {
@@ -84,6 +129,7 @@ const AddCollaborateur = (props) => {
                 values.fonction=selectedMultifonction.value
                 values.sexe=selectedMultiCivilite.value
                 values.type_contrat=selectedMultiContatType.value
+                values.image=image?image:null
                 const response=await CollaborateurService.addCollaborateurs(values)
                 if(response.status===200){
                     props.onRefresh()
@@ -99,7 +145,66 @@ const AddCollaborateur = (props) => {
                     addCollaborateurAction(e, v)
                 }}
         >
-            <h4 className="card-title" class="d-flex flex-column align-items-center my-2 bg-primary" >COORDONNEES </h4>
+            <div className="container" >
+
+
+                {
+                    !cropend && inputImg && (
+                        <ImageCropper
+                            getBlob={getBlob}
+                            inputImg={inputImg}
+                        />
+                    )
+                }
+                <center>
+                {blob && cropend && (
+                    <div>
+                        <img className="file-upload-image" src={blob} alt="your image"/>
+                            <div class="image-title-wrap">
+                                <button type="button" onClick={()=>RemoveImage()} className="btn btn-danger">Remove <i className="mdi mdi-cancel" /></button>
+                            </div>
+                    </div>
+                    )}
+                </center>
+                <center>
+                    {cropend && !inputImg && (
+                        <div class="file-upload">
+                            <div>
+                                <div className="image-upload-wrap">
+                                    <input className="file-upload-input" type="file" accept="image/*" onChange={onInputChange}/>
+                                    <div className="drag-text">
+                                        <h3>Drag and drop a file or select add Image</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </center>
+                {!cropend &&(
+                    <div className={"row pt-3"}>
+                        <div className={"col-8"}>
+
+                        </div>
+                        <div className="col-2">
+                            <button className="btn btn-danger w-md waves-effect waves-light"
+                                    type="submit"
+                                    onClick={RemoveImage}>
+                                Cancel <i className="mdi mdi-cancel" />
+                            </button>
+                        </div>
+                        <div className="col-2">
+                            <button className="btn btn-primary w-md waves-effect waves-light"
+                                    type="submit"
+                                    onClick={handleSubmitImage}>
+                                Crop <i className="mdi mdi-crop" />
+                            </button>
+                        </div>
+                    </div>
+                )
+                }
+
+
+            </div>
             <Row>
                 <Col md="6">
                     <div className="mb-3">

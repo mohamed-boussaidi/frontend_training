@@ -27,6 +27,10 @@ function UpdateCollaborateurs(data){
 function deleteCollaborateurs(id){
     return axiosInstance.delete('/deleteCollaborateurs/'+id)
 }
+function uploadImage(data){
+    return axiosInstance.post('/uploadImage/users',data)
+}
+
 
 export default {
     registerCollaborateur,
@@ -36,6 +40,7 @@ export default {
     getAllCollaborateurs,
     addCollaborateurs,
     getCollaborateur,
-    StatCollaborateurs
+    StatCollaborateurs,
+    uploadImage
 
 }

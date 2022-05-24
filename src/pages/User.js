@@ -43,6 +43,14 @@ const User = (props) => {
   const handleShow = () => setOpenModal(true);
   const columns= [
     {
+      title: "Image",
+      field: "image",
+      sort: "asc",
+      width: 100,
+      render :rowData => <img src={process.env.REACT_APP_URL_IMAGES_USERS+rowData.image} className={"rounded-circle header-profile-user"} />
+
+    },
+    {
       title: "Nom",
       field: "nom",
       sort: "asc",

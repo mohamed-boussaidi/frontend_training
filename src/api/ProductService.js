@@ -16,12 +16,17 @@ function UpdateProduct(data){
 function deleteProduct(id){
     return axiosInstance.delete('/deleteProduct/'+id)
 }
+function uploadImage(data){
+    return axiosInstance.post('/uploadImage/products',data)
+}
+
 
 export default {
     addproduct,
     Products,
     getProduct,
     UpdateProduct,
-    deleteProduct
+    deleteProduct,
+    uploadImage
 
 }

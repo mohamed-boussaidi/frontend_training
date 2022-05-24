@@ -16,12 +16,17 @@ function UpdateSalle(data){
 function deleteSalle(id){
     return axiosInstance.delete('/deleteSalle/'+id)
 }
+function uploadImage(data){
+    return axiosInstance.post('/uploadImage/salles',data)
+}
+
 
 export default {
     addSalle,
     Salles,
     getSalle,
     UpdateSalle,
-    deleteSalle
+    deleteSalle,
+    uploadImage
 
 }
