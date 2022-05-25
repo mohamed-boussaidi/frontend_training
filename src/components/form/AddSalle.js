@@ -5,10 +5,44 @@ import React, {useState,useEffect} from "react";
 
 import {withRouter} from "react-router-dom";
 import SalleService from "../../api/SalleService";
+import ImageCropper from "../ImageCropper";
+import {dataURLtoFile} from "../../utlis/functions";
 
 import moment from "moment";
 
 const AddSalle = (props) => {
+    const [blob, setBlob] = useState(null)
+    const [inputImg, setInputImg] = useState('')
+    const [cropend, setCropend] = useState(true)
+
+    const getBlob = (blob) => {
+        setBlob(blob)
+    }
+    const onInputChange = (e) => {
+        // convert image file to base64 string
+        const file = e.target.files[0]
+        const reader = new FileReader()
+
+        reader.addEventListener('load', () => {
+            setInputImg(reader.result)
+        }, false)
+
+        if (file) {
+            reader.readAsDataURL(file)
+        }
+        setCropend(false)
+    }
+
+    const handleSubmitImage = (e) => {
+        setCropend(true)
+
+    }
+    const RemoveImage = (e) => {
+        setCropend(true)
+        setBlob(null)
+        setInputImg('')
+
+    }
     
     const [selectedMultiEquipements, setselectedMultiEquipements] = useState({label: props.data?props.data.equipements:null, value: props.data?props.data.equipements:null})
     function handleSelectedMultiEquipements(equipements) {
@@ -23,9 +57,9 @@ const AddSalle = (props) => {
             label: "Les equipements",
             options: [
                 {label: "PC", value: "PC"},
-                {label: "Smartphone", value: "Smartphone"},
-                {label: "Tablette", value: "Tablette"},
-                {label: "Ipade", value: "Ipade"},
+                {label: "Tv", value: "Tv"},
+                {label: "Projecteur", value: "Projecteur"},
+                {label: "Tableau", value: "Tableau"},
             ]
         },
     ]
@@ -41,11 +75,21 @@ const AddSalle = (props) => {
         },
     ]
     async function addSalleAction(event, values){
+        var image=null
+        if (blob) {
+            let data = new FormData();
+            var file = dataURLtoFile(blob,'image.jpeg');
+            data.append('image', file);
+            const response = await SalleService.uploadImage(data)
+            if (response.status === 200) {
+                image = response.data.image
+            }
+        }
+
         if(props.data){
             try {
                 values.id=props.data.id
-            
-
+                values.image=image?image:props.data.image
                 const response=await SalleService.UpdateSalle(values)
                 if(response.status===200){
                     props.onRefresh()
@@ -57,8 +101,8 @@ const AddSalle = (props) => {
             }
         }else{
             try {
-             
-
+            
+                values.image=image?image:null
                 const response=await SalleService.addSalle(values)
                 if(response.status===200){
                     props.onRefresh()
@@ -76,8 +120,68 @@ const AddSalle = (props) => {
                         addSalleAction(e, v)
                     }}
             >
-                <h4 className="card-title" class="d-flex flex-column align-items-center my-2 bg-primary" >Ajouter une salle </h4>
-             
+                      <div className="container" >
+
+
+{
+    !cropend && inputImg && (
+        <ImageCropper
+            getBlob={getBlob}
+            inputImg={inputImg}
+        />
+    )
+}
+<center>
+{blob && cropend && (
+    <div>
+        <img className="file-upload-image" src={blob} alt="your image"/>
+            <div class="image-title-wrap">
+                <button type="button" onClick={()=>RemoveImage()} className="btn btn-danger">Remove <i className="mdi mdi-cancel" /></button>
+            </div>
+    </div>
+    )}
+</center>
+<center>
+    {cropend && !inputImg && (
+        <div class="file-upload">
+            <div>
+                <div className="image-upload-wrap">
+                    <input className="file-upload-input" type="file" accept="image/*" onChange={onInputChange}/>
+                    <div className="drag-text">
+                        <h3>Faites glisser et déposez un fichier ou sélectionnez ajouter une image</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )}
+</center>
+{!cropend &&(
+    <div className={"row pt-3"}>
+        <div className={"col-8"}>
+
+        </div>
+        <div className="col-2">
+            <button className="btn btn-danger w-md waves-effect waves-light"
+                    type="submit"
+                    onClick={RemoveImage}>
+                Cancel <i className="mdi mdi-cancel" />
+            </button>
+        </div>
+        <div className="col-2">
+            <button className="btn btn-primary w-md waves-effect waves-light"
+                    type="submit"
+                    onClick={handleSubmitImage}>
+                Crop <i className="mdi mdi-crop" />
+            </button>
+        </div>
+    </div>
+)
+}
+
+
+</div>
+                
+                <h4 className="card-title" class="d-flex flex-column align-items-center my-2 bg-primary center"  >Ajouter Salle</h4>
                 <Row>
                     <Col md="6">
                         <div className="mb-3">

@@ -1,18 +1,31 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react'
 import {
     Col,
     Card,
-    UncontrolledTooltip
+    UncontrolledTooltip,
+    TabContent,
+     TabPane,
+      Nav,
+    NavItem, NavLink, Row
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import FormValidations from "../Forms/FormValidations";
+import Cards from 'components/Cards';
+import CardProduit from 'components/CardProduit';
+import CongeUser from 'components/CongeUser';
+import ExportUser from 'components/form/ExportUser';
 
-class CardUser extends Component {
-    render() {
+
+function CardUser(props){
+    const [currentActiveTab, setCurrentActiveTab] = useState('1');
+  
+    // Toggle active state for Tab
+    const toggle = tab => {
+        if (currentActiveTab !== tab) setCurrentActiveTab(tab);
+    }
         return (
             <React.Fragment>
-                {
-                    this.props.users.map((user, key) =>
+            {
+                    props.users.map((user, key) =>
                         <Col xl="12" md="12" key={key}>
                             <Card className="directory-card">
                                 <div>
@@ -44,31 +57,86 @@ class CardUser extends Component {
                                         </ul>
                                     </div>
                                 </div>
-                                <div>
-                                    <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                        <li className="nav-item" role="presentation">
-                                            <button className="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Home</button>
-                                        </li>
-                                        <li className="nav-item" role="presentation">
-                                            <button className="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</button>
-                                        </li>
-                                        <li className="nav-item" role="presentation">
-                                            <button className="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</button>
-                                        </li>
-                                    </ul>
-                                    <div className="tab-content" id="pills-tabContent">
-                                        <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...</div>
-                                        <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
-                                        <div className="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
-                                    </div>
-                                </div>
+                                <Nav tabs>
+                <NavItem>
+                    <NavLink
+                        onClick={() => { toggle('1'); }}
+                    >
+                        Tab1
+                    </NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink
+                        onClick={() => { toggle('2'); }}
+                    >
+                        Tab2
+                    </NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink
+                        onClick={() => { toggle('3'); }}
+                    >
+                        Tab3
+                    </NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink
+                        onClick={() => { toggle('4'); }}
+                    >
+                        Tab4
+                    </NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink
+                        onClick={() => { toggle('5'); }}
+                    >
+                        Tab5
+                    </NavLink>
+                </NavItem>
+            </Nav>
+            <TabContent activeTab={currentActiveTab}>
+                <TabPane tabId="1">
+                    <Row>
+                        <Col sm="12">
+                      <h1>islem</h1>
+                        </Col>
+                    </Row>
+                </TabPane>
+                <TabPane tabId="2">
+                    <Row>
+                        <Col sm="12">
+                        <Cards />
+                        </Col>
+                    </Row>
+                </TabPane>
+                <TabPane tabId="3">
+                    <Row>
+                        <Col sm="12">
+                            <CardProduit />
+                        </Col>
+                    </Row>
+                </TabPane>
+                <TabPane tabId="4">
+                    <Row>
+                        <Col sm="12">
+                            <CongeUser />
+                        </Col>
+                    </Row>
+                </TabPane>
+                <TabPane tabId="5">
+                    <Row>
+                        <Col sm="12">
+                            <ExportUser />
+                        </Col>
+                    </Row>
+                </TabPane>
+            </TabContent>
                             </Card>
                         </Col>
                     )
                 }
             </React.Fragment>
         );
-    }
 }
 
 export default CardUser;

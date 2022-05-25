@@ -91,7 +91,7 @@ const orders = (props) => {
   }
 
   async function activateEditPopup(id){
-    const response = await ExpenseService.getorder(id)
+    const response = await OrderService.getorder(id)
     if(response.status===200){
       setOrder(response.data)
       handleShow()

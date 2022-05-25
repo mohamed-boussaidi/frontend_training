@@ -13,7 +13,7 @@ function Popup({visibility,closeAction,children,title}) {
       </div>
       <Modal size="lg" show={visibility} onHide={closeAction}>
         <Modal.Header closeButton>
-          <Modal.Title>{title}</Modal.Title>
+        <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>{children}</Modal.Body>
         <Modal.Footer>
@@ -23,8 +23,6 @@ function Popup({visibility,closeAction,children,title}) {
             Fermer
           </Button>
           </Col>
-      
-
         </Modal.Footer>
       </Modal>
     </>

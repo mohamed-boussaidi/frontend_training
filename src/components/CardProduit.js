@@ -6,33 +6,18 @@ import { MultiSelect } from "react-multi-select-component";
 
 import Select from 'react-select'
 import { useState } from "react";
-import Popup from './Popup';
 
- const Cards = props =>{
-  const [openModal, setOpenModal] = useState(false);
-  const handleClose = () => setOpenModal(false);
-  const handleShow = () => setOpenModal(true);
-  const [selectedMulti3, setselectedMulti3] = useState(null)
-  function handleMulti3(selectedMulti3) {
-    setselectedMulti3(selectedMulti3)
-  }
-  const optionGroup2 = [
-    {
-      label: "Materiel informatique",
-      options: [
-        { label: "Portable", value: "Portable" },
-        { label: "Pc", value: "PC" },
-      ]
-    },
-  ]
-  return (
+
+ const CardProduit = props =>{
+  
+  return ( 
     <>
    <Row>
     <Col xl="12"  className="container">
           <Card>
             <CardBody>
             <div className="text-end float-end pt-3 p-4 "></div>
-    <h1 className="text-center text-primary my-5">RESERVATION DES SALLES</h1>
+    <h1 className="text-center text-primary my-5">Les matériels</h1>
 
     <div className="container">
       <div className="row">
@@ -109,89 +94,7 @@ import Popup from './Popup';
           </Card>
          </Col>
          </Row>
-         <Popup visibility={openModal} closeAction={handleClose} title={"Ajouter une salle"} class="text-center" >
-        <div>
-              <AvForm className="needs-validation">
-                <Row>
-                  <Col md="6">
-                    <div className="mb-3">
-                      <Label htmlFor="validationCustom01">Nom du salle</Label>
-                      <AvField
-                        name="firstname"
-                        placeholder="Nom"
-                        type="text"
-                        errorMessage=" SVP Entrez votre nom"
-                        className="form-control"
-                        validate={{ required: { value: true } }}
-                        id="validationCustom01"
-                      />
-                    </div>
-                  </Col>
-                  <Col md="6">
-                    <div className="mb-3">
-                      <Label htmlFor="validationCustom02">Adresse</Label>
-                      <AvField
-                        name="lastname"
-                        placeholder="Adresse"
-                        type="text"
-                        errorMessage="SVP Entrez votre Prénom"
-                        className="form-control"
-                        validate={{ required: { value: true } }}
-                        id="validationCustom02"
-                      />
-                    </div>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md="6">
-                    <div className="mb-3">
-                      <Label htmlFor="validationCustom03">Nombre de place</Label>
-                      <AvField
-                        name="city"
-                        placeholder="Nombre de place"
-                        type="text"
-                        errorMessage=" SVP Entrez votre Pays."
-                        className="form-control"
-                        validate={{ required: { value: true } }}
-                        id="validationCustom03"
-                      />
-                    </div>
-                  </Col>
-                  <Col md="6">
-                  <div className="mb-3 templating-select select2-container">
-                      <label className="control-label">Equipement</label>
-                      <Select
-                        value={selectedMulti3}
-                        isMulti={true}
-                        onChange={() => {
-                          handleMulti3()
-                        }}
-                        options={optionGroup2}
-                        classNamePrefix="select2-selection"
-                        closeMenuOnSelect={false}
-                      />
-                    </div>
-
-                  </Col>
-                  <div className="mb-3">
-                  <label className="form-lable">L'image du salle </label>
-                  <input type="file" className="form-control form-control-file" data-buttonname="btn-secondary" />
-                </div>
-                  <FormGroup className="mb-0">
-                  <div>
-                    <Button type="submit" color="primary" className="ms-1">
-                      Enregistrer
-                        </Button>{" "}
-                    <Button type="reset" color="secondary">
-                      Annuler
-                        </Button>
-                  </div>
-                </FormGroup>
-                  </Row>
-                  </AvForm>
-                  </div>
-                  </Popup>
     </>
   );
 };
-export default Cards;
+export default CardProduit;

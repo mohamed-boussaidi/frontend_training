@@ -26,7 +26,7 @@ import moment from "moment";
 import MaterialTable from "material-table";
 
 const Salle = (props) => {
-  const [Salles, setSalles] = useState([]);
+  const [salles, setSalles] = useState([]);
   const breadcrumbItems = [
     { title: "SPOC", link: "#" },
     { title: "Gestion des salles", link: "#" }
@@ -141,7 +141,7 @@ const Salle = (props) => {
               <MaterialTable
                   title={"Les salles"}
                   columns={columns}
-                  data={Salles}
+                  data={salles}
                   actions={actions}
                   isLoading={loading}
                   editable={{
@@ -221,7 +221,7 @@ const Salle = (props) => {
              title={"Ajouter Salle"}
              class="text-center"
       >
-    <AddSalle data={Salles}
+    <AddSalle data={salles}
                       onRefresh={onRefresh}>
     </AddSalle>
       </Popup>

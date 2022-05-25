@@ -25,7 +25,7 @@ import AddProduct from "../components/form/AddProduct";
 import moment from "moment";
 import MaterialTable from "material-table";
 
-const Products = (props) => {
+const Product = (props) => {
   const [products, setProducts] = useState([]);
   const breadcrumbItems = [
     { title: "SPOC", link: "#" },
@@ -216,4 +216,4 @@ const Products = (props) => {
   )
 }
 
-export default connect(null, { setBreadcrumbItems })(Products);
+export default connect(null, { setBreadcrumbItems })(Product);
