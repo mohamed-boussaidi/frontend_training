@@ -1,16 +1,17 @@
-import React from 'react'
-import { Button, Card, CardBody, Col, Form, FormGroup, Input, InputGroup, Label, Row } from "reactstrap"
+import {Button, Col, FormGroup, Label, Row} from "reactstrap";
+import {AvField, AvForm} from "availity-reactstrap-validation";
+import Select from "react-select";
+import React, {useState,useEffect} from "react";
 
-import { AvForm, AvField } from "availity-reactstrap-validation"
-import { MultiSelect } from "react-multi-select-component";
+import {withRouter} from "react-router-dom";
+import CongeService from "../../api/CongeService";
 
-import Select from 'react-select'
-import { useState } from "react";
+import moment from "moment";
 
+const CongeUser = (props) => {
 
- const CongeUser = props =>{
-    const [users, setUsers] = useState([]);
-    const [optionscollaborateur, setOptionsCollaborateur] = useState([]);
+    const [Conges, setConges] = useState([]);
+    
     const [loading, setLoading] = useState(true);
 
 
@@ -19,11 +20,7 @@ import { useState } from "react";
     function handleSelectedMultiCongeType(type_conge) {
         setselectedMultiCongeType(type_conge)
     }
-    const [selectedMultiCollaborateur, setselectedMultiCollaborateur] = useState({label: props.data?props.data.collaborateur_id:null, value: props.data?props.data.collaborateur_id:null})
-
-    function handleSelectedCollaborateurMulti(collaborateur) {
-        setselectedMultiCollaborateur(collaborateur)
-    }
+   
 
 
     const optionGroup1 = [
@@ -40,16 +37,47 @@ import { useState } from "react";
     ]
 
 
-  return (
-    <>
-   <Row>
-    <Col xl="12"  className="container">
-    <AvForm className="needs-validation"
+    async function addCongeAction(event, values){
+        if(props.data){
+            try {
+                const userData  = localStorage.getItem("authUser")?JSON.parse(localStorage.getItem("authUser")):null
+                values.type_conge=selectedMultiCongeType.value
+                values.status="pendding"
+                values.collaborateur_id=userData.data.id
+                const response=await CongeService.addConges(values)
+                if(response.status===200){
+                    props.onRefresh()
+                }
+            }catch (e) {
+
+            }
+        }
+    }
+
+
+   
+
+      useEffect( () => {
+        setLoading(true)
+        setLoading(false)
+      }, [])
+
+
+
+      if(loading){
+        return <loading></loading>
+      }else{
+
+        return (
+            <div className="container pt-5 pb-5 ">
+            <Col xl="12"  className="container">
+            <AvForm className="needs-validation"
                     onValidSubmit={(e, v) => {
                         addCongeAction(e, v)
                     }}
             >
                 <h4 className="card-title" class="d-flex flex-column align-items-center my-2 bg-primary" >Passer une demande de congé </h4>
+                
                 <Row>
                     <Col md="6">
                         <div className="mb-3">
@@ -145,19 +173,19 @@ import { useState } from "react";
                     <FormGroup className="mb-0">
                         <div>
                             <Button type="submit" color="primary" className="ms-1">
-                                {props.data?"Mise a jour":"Ajouter"}
+                                Ajouter
                             </Button>
-                            <Button type="reset" color="secondary" href="/user">
-                                Annuler
-                            </Button>
+                          
                         </div>
                     </FormGroup>
                 </Col>
     
             </AvForm>
-         </Col>
-         </Row>
-    </>
-  );
-};
+            </Col>
+            </div>
+        )
+      }
+
+}
+
 export default CongeUser;

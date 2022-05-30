@@ -132,3 +132,19 @@
     border: 0;
     transition: all .2s ease;
 }
+
+.directory-card img {
+    position: relative;
+    top: 0px !important;
+}
+
+.footer-user {
+    background-color: #fafafa;
+    bottom: 0;
+    padding: 20px calc(24px / 2);
+    position: absolute;
+    text-align: center;
+    color: #5b626b;
+    height: 60px;
+    box-shadow: 0px -1px 2px 0px rgb(0 0 0 / 5%);
+}

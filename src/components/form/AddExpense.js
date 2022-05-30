@@ -106,6 +106,7 @@ const AddExpense = (props) => {
       }else{
 
         return (
+            
             <AvForm className="needs-validation"
                     onValidSubmit={(e, v) => {
                         addExpenseAction(e, v)
@@ -141,7 +142,7 @@ const AddExpense = (props) => {
                                 onChange={(e) => {
                                     handleSelectedMultiTypeDepense(e)
                                 }}
-                                options={optionGroup1}
+                                options={optionGroup1}n
                                 classNamePrefix="select2-selection"
                                 closeMenuOnSelect={false}
                             />

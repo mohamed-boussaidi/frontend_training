@@ -7,6 +7,8 @@ import {withRouter} from "react-router-dom";
 import ProductService from "../../api/ProductService";
 
 import moment from "moment";
+import ImageCropper from "../ImageCropper";
+import {dataURLtoFile} from "../../utlis/functions";
 
 const AddProduct = (props) => {
 

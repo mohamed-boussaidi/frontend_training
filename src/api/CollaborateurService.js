@@ -2,7 +2,7 @@ const { axiosInstance } = require("config/axiosInstance");
 
 
 function loginCollaborateur(data){
-    return axiosInstance.post('/loginCollaborateur',data)
+    return axiosInstance.post('/collaborateurlogin',data)
 }
 function registerCollaborateur(data){
     return axiosInstance.post('/registerCollaborateur',data)

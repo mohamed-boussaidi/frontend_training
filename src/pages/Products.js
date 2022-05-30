@@ -204,7 +204,7 @@ const Product = (props) => {
       </Row>
       <Popup visibility={openModal}
              closeAction={handleClose}
-             title={"Ajouter Matériel"}
+             title={product?"Modifier Matériel":"Ajouter Matériel"}
              class="text-center"
       >
     <AddProduct data={product}

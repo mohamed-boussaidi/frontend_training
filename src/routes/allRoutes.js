@@ -6,6 +6,7 @@ import UserProfile from "../pages/Authentication/user-profile"
 
 
 // Authentication related pages
+import LoginAdmin from "../pages/Authentication/LoginAdmin"
 import Login from "../pages/Authentication/Login"
 import Logout from "../pages/Authentication/Logout"
 import Register from "../pages/Authentication/Register"
@@ -34,6 +35,7 @@ import Pages404 from "../pages/Extra Pages/pages-404";
 import Pages500 from "../pages/Extra Pages/pages-500";
 import Conge from "../pages/Conge";
 import Reservation from "../pages/Reservation";
+import CalendarSalles from "../pages/CalendarSalles"
 
 
 const userRoutes = [
@@ -49,6 +51,8 @@ const userRoutes = [
   { path: "/Reservation", component: Reservation },
   { path: "/Orders", component: Order },
   { path: "/profile", component: UserProfile },
+  { path: "/calendarsalles/:id", component: CalendarSalles },
+
 
   
   
@@ -63,9 +67,11 @@ const userRoutes = [
 ]
 
 const authRoutes = [
+  { path: "/loginAdmin", component: LoginAdmin },
   { path: "/login", component: Login },
   { path: "/forgot-password", component: ForgetPwd },
   { path: "/register", component: Register },
+
 
 
   { path: "/pages-404", component: Pages404 },
@@ -78,8 +84,5 @@ const authRoutes = [
   { path: "/auth-lock-screen", component: LockScreen },
 ]
 
-const collaborateurRoutes = [
-  { path: "/profile", component: UserProfile },
-]
 
-export { userRoutes, authRoutes ,collaborateurRoutes }
+export { userRoutes, authRoutes  }

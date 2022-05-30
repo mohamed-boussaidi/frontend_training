@@ -6,91 +6,64 @@ import {
     TabContent,
      TabPane,
       Nav,
-    NavItem, NavLink, Row
+    NavItem, NavLink, Row, Container
 } from "reactstrap";
-import { Link } from "react-router-dom";
-import Cards from 'components/Cards';
-import CardProduit from 'components/CardProduit';
-import CongeUser from 'components/CongeUser';
-import ExportUser from 'components/form/ExportUser';
+import CardSalle from 'components/collaborateur/CardSalle';
+import CardProduct from 'components/collaborateur/CardProduct';
+import CongeUser from 'components/collaborateur/CongeUser';
+import TemplateUser from 'components/TemplateUser';
+import CardExpense from 'components/collaborateur/CardExpense';
+
 
 
 function CardUser(props){
     const [currentActiveTab, setCurrentActiveTab] = useState('1');
+
+
   
     // Toggle active state for Tab
     const toggle = tab => {
         if (currentActiveTab !== tab) setCurrentActiveTab(tab);
     }
         return (
+            <Container>
             <React.Fragment>
-            {
-                    props.users.map((user, key) =>
-                        <Col xl="12" md="12" key={key}>
-                            <Card className="directory-card">
-                                <div>
-                                    <div className="directory-bg text-center">
-                                        <div className="directory-overlay">
-                                            <img className="rounded-circle avatar-lg img-thumbnail" src={user.imgUrl} alt="Generic placeholder" />
-                                        </div>
-                                    </div>
-
-                                    <div className="directory-content text-center p-4">
-                                        <p className=" mt-4">{user.designation}</p>
-                                        <h5 className="font-size-16">{user.name}</h5>
-
-                                        <p className="text-muted">{user.desc}</p>
-
-                                        <ul className="social-links list-inline mb-0 mt-4">
-                                            {
-                                                user.socials.map((social, key) =>
-                                                    <React.Fragment key={key}>
-                                                        <li className="list-inline-item">
-                                                            <Link title="" className={"tooltips btn-" + social.colorclass} id={social.title + user.id} to={social.link}><i className={social.icon}></i></Link>
-                                                            <UncontrolledTooltip placement="top" target={social.title + user.id}>
-                                                                {social.title}
-                                                            </UncontrolledTooltip>
-                                                        </li>{" "}
-                                                    </React.Fragment>
-                                                )
-                                            }
-                                        </ul>
-                                    </div>
-                                </div>
-                                <Nav tabs>
+                <TemplateUser>
+ 
+            <Nav tabs>
                 <NavItem>
                     <NavLink
                         onClick={() => { toggle('1'); }}
                     >
-                        Tab1
+                        Dashboard
                     </NavLink>
                 </NavItem>
                 <NavItem>
                     <NavLink
                         onClick={() => { toggle('2'); }}
                     >
-                        Tab2
+                        Réservation
                     </NavLink>
                 </NavItem>
                 <NavItem>
                     <NavLink
                         onClick={() => { toggle('3'); }}
                     >
-                        Tab3
+                        Matériels
                     </NavLink>
                 </NavItem>
                 <NavItem>
                     <NavLink
                         onClick={() => { toggle('4'); }}
                     >
-                        Tab4
+                        Congé
                     </NavLink>
                 </NavItem>
                 <NavItem>
                     <NavLink
                         onClick={() => { toggle('5'); }}
                     >
-                        Tab5
+                        Note de frais
                     </NavLink>
                 </NavItem>
             </Nav>
@@ -105,14 +78,14 @@ function CardUser(props){
                 <TabPane tabId="2">
                     <Row>
                         <Col sm="12">
-                        <Cards />
+                        {currentActiveTab==="2"? <CardSalle />:<></>}
                         </Col>
                     </Row>
                 </TabPane>
                 <TabPane tabId="3">
                     <Row>
                         <Col sm="12">
-                            <CardProduit />
+                        {currentActiveTab==="3"? <CardProduct />:<></>}
                         </Col>
                     </Row>
                 </TabPane>
@@ -126,16 +99,20 @@ function CardUser(props){
                 <TabPane tabId="5">
                     <Row>
                         <Col sm="12">
-                            <ExportUser />
+                        <CardExpense />
                         </Col>
                     </Row>
                 </TabPane>
             </TabContent>
-                            </Card>
-                        </Col>
-                    )
-                }
+              
+
+            </TemplateUser>
+
+       
             </React.Fragment>
+            
+            
+         </Container>
         );
 }
 

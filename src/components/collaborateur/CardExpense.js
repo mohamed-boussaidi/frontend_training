@@ -5,13 +5,11 @@ import React, {useState,useEffect} from "react";
 
 import {withRouter} from "react-router-dom";
 import ExpenseService from "../../api/ExpenseService";
-import CollaborateurService from "../../api/CollaborateurService";
 
 import moment from "moment";
 
-const AddExpense = (props) => {
+const CardExpense = (props) => {
     const [users, setUsers] = useState([]);
-    const [optionscollaborateur, setOptionsCollaborateur] = useState([]);
     const [loading, setLoading] = useState(true);
 
 
@@ -20,11 +18,8 @@ const AddExpense = (props) => {
     function handleSelectedMultiTypeDepense(type_depense) {
         setselectedMultiTypeDepense(type_depense)
     }
-    const [selectedMultiCollaborateur, setselectedMultiCollaborateur] = useState({label: props.data?props.data.collaborateur_id:null, value: props.data?props.data.collaborateur_id:null})
 
-    function handleSelectedCollaborateurMulti(collaborateur) {
-        setselectedMultiCollaborateur(collaborateur)
-    }
+    
 
 
     const optionGroup1 = [
@@ -44,58 +39,21 @@ const AddExpense = (props) => {
 
 
     async function addExpenseAction(event, values){
-        if(props.data){
+     
             try {
-                values.id=props.data.id
+                const userData  = localStorage.getItem("authUser")?JSON.parse(localStorage.getItem("authUser")):null
                 values.type_depense=selectedMultiTypeDepense.value
-                values.collaborateur_id=selectedMultiCollaborateur.value
-
-                const response=await ExpenseService.UpdateExpense(values)
-                if(response.status===200){
-                    props.onRefresh()
-
-                }
-
-            }catch (e) {
-
-            }
-        }else{
-            try {
-                values.type_depense=selectedMultiTypeDepense.value
-                values.collaborateur_id=selectedMultiCollaborateur.value
                 values.status="pendding"
-
+                values.collaborateur_id=userData.data.id
                 const response=await ExpenseService.addExpense(values)
                 if(response.status===200){
                     props.onRefresh()
                 }
             }catch (e) {
-
             }
         }
-    }
-
-
-    async function  getUsersOptions(){
-        var options=[]
-
-        const response = await CollaborateurService.getAllCollaborateurs()
-
-          if(response.status===200){
-            response.data.map((item,index)=>{
-                options.push({label: item.nom+""+item.prenom, value: item.id})
-            })
-
-          }
-          setOptionsCollaborateur(options)
-
-
-      }
-
-
       useEffect( () => {
         setLoading(true)
-        getUsersOptions()
         setLoading(false)
       }, [])
 
@@ -106,35 +64,15 @@ const AddExpense = (props) => {
       }else{
 
         return (
+            <div className="container pt-5 pb-5 ">
+            <Col xl="12"  className="container">
             <AvForm className="needs-validation"
                     onValidSubmit={(e, v) => {
                         addExpenseAction(e, v)
                     }}
             >
                 <h4 className="card-title" class="d-flex flex-column align-items-center my-2 bg-primary" >Passer une demande note de frais </h4>
-                <div className="col-md-4"></div>
                 <Row>
-                    
-                <Col md="6">
-                        <div className="mb-3 templating-select select2-container">
-                            <label className="control-label">Collaborateur</label>
-                            <Select
-                                value={selectedMultiCollaborateur}
-                                onChange={(e) => {
-                                    handleSelectedCollaborateurMulti(e)
-                                }}
-                                options={[
-                                    {
-                                        label: "Collaborateur",
-                                        options: optionscollaborateur
-                                    },
-                                ]}
-                                classNamePrefix="select2-selection"
-                                closeMenuOnSelect={false}
-                            />
-                        </div>
-    
-                    </Col>
                     <Col md="6">
                         <div className="mb-3 templating-select select2-container">
                             <label className="control-label">type de depense</label>
@@ -143,12 +81,27 @@ const AddExpense = (props) => {
                                 onChange={(e) => {
                                     handleSelectedMultiTypeDepense(e)
                                 }}
-                                options={optionGroup1}
+                                options={optionGroup1}n
                                 classNamePrefix="select2-selection"
                                 closeMenuOnSelect={false}
                             />
                         </div>
     
+                    </Col>
+                    <Col md="6">
+                        <div className="mb-3">
+                            <Label htmlFor="validationCustom01">Client</Label>
+                            <AvField
+                                name="client"
+                                placeholder="Client"
+                                type="text"
+                                value={props.data?props.data.client:null}
+                                errorMessage=" SVP Entrez le client"
+                                className="form-control"
+                                validate={{ required: { value: true } }}
+                                id="validationCustom01"
+                            />
+                        </div>
                     </Col>
                 </Row>
                 
@@ -186,43 +139,25 @@ const AddExpense = (props) => {
                         </div>
                     </Col>
                     </Row>
-                    <Col md="6">
-                        <div className="mb-3">
-                            <Label htmlFor="validationCustom01">Client</Label>
-                            <AvField
-                                name="client"
-                                placeholder="Client"
-                                type="text"
-                                value={props.data?props.data.client:null}
-                                errorMessage=" SVP Entrez le client"
-                                className="form-control"
-                                validate={{ required: { value: true } }}
-                                id="validationCustom01"
-                            />
-                        </div>
-                    </Col>
-                    <Row>
-                 
-                    </Row>
+             
+                    
                 
                 <Col md="50">
     
                     <FormGroup className="mb-0">
                         <div>
                             <Button type="submit" color="primary" className="ms-1">
-                                {props.data?"Mise a jour":"Ajouter"}
-                            </Button>
-                            <Button type="reset" color="secondary" href="/user">
-                                Annuler
+                                Ajouter
                             </Button>
                         </div>
-                    </FormGroup>
+                    </FormGroup>  
                 </Col>
-    
-            </AvForm>>
+            </AvForm>
+            </Col>
+            </div>
         )
       }
 
 }
 
-export default withRouter(AddExpense)
+export default CardExpense;

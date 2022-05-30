@@ -218,11 +218,10 @@ const Salle = (props) => {
       </Row>
       <Popup visibility={openModal}
              closeAction={handleClose}
-             title={"Ajouter Salle"}
-             class="text-center"
-      >
-    <AddSalle data={salles}
-                      onRefresh={onRefresh}>
+             title={salle?"Modifier Salle":"Ajouter Salle"}
+             class="text-center">
+    <AddSalle data={salle}
+              onRefresh={onRefresh}>
     </AddSalle>
       </Popup>
 

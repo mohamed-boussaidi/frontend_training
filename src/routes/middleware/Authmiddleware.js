@@ -40,12 +40,21 @@ function Authmiddleware  ({
                         to={{pathname: "/login"}}
                     />
                 )
-            }else if(userData.role!=="admin") {
-                return (
-                    <Redirect
-                    to={{pathname: "/profile"}}
-                />
-                )
+            }else if(userData.role!=="admin" ) {
+                if(path==="/profile" || path==="/calendarsalles/:id" ){
+                    return (
+                        <Layout>
+                        <Component {...props} />
+                    </Layout>
+                    )
+                }else{
+                    return (
+                        <Redirect
+                        to={{pathname: "/profile"}}
+                    />
+                    )
+                }
+
             }else{
                 return (
                         <Layout>

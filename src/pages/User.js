@@ -292,7 +292,7 @@ const User = (props) => {
       </Row>
       <Popup visibility={openModal}
              closeAction={handleClose}
-             title={"Ajouter Utilisateur"}
+             title={user?"Modifier Utilisateur":"Ajouter Utilisateur"}
              class="text-center"
       >
     <AddCollaborateur data={user}

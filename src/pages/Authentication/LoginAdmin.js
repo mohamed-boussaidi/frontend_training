@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import MetaTags from 'react-meta-tags';
 import React, {useState} from "react"
-import CollaborateurService from 'api/CollaborateurService';
+import UserService from 'api/UserService';
 
 import { Row, Col, CardBody, Card, Alert, Container } from "reactstrap"
 
@@ -16,15 +16,15 @@ import { AvForm, AvField } from "availity-reactstrap-validation"
 import logoLightPng from "../../assets/images/logo-light.png"
 import logoDark from "../../assets/images/spoc.png"
 
-const Login = props => {
+const LoginAdmin = props => {
   const [errorMessage,setErrorMessage]=useState(null)
 
   function loginAction   (event, values) {
 
-    CollaborateurService.loginCollaborateur(values).then(reponse=>{
+    UserService.login(values).then(reponse=>{
       const data =JSON.stringify({token:reponse.data.token,role:reponse.data.role,data:reponse.data.data})
       localStorage.setItem("authUser",data)
-      props.history.push('/profile')
+      props.history.push('/')
     }).catch(e=>{
       setErrorMessage("Invalid email or password !")
 
@@ -150,4 +150,4 @@ const Login = props => {
 
 
 
-export default withRouter(Login)
+export default withRouter(LoginAdmin)
