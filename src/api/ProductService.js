@@ -28,5 +28,4 @@ export default {
     UpdateProduct,
     deleteProduct,
     uploadImage
-
 }

@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import {
     Col,
-    Card,
-    UncontrolledTooltip,
     TabContent,
      TabPane,
       Nav,
@@ -13,6 +11,7 @@ import CardProduct from 'components/collaborateur/CardProduct';
 import CongeUser from 'components/collaborateur/CongeUser';
 import TemplateUser from 'components/TemplateUser';
 import CardExpense from 'components/collaborateur/CardExpense';
+import DashboardCollaborateur from "../../components/collaborateur/DashboardCollaborateur";
 
 
 
@@ -71,7 +70,7 @@ function CardUser(props){
                 <TabPane tabId="1">
                     <Row>
                         <Col sm="12">
-                      <h1>islem</h1>
+                            {currentActiveTab==="1"? <DashboardCollaborateur/>:<></>}
                         </Col>
                     </Row>
                 </TabPane>

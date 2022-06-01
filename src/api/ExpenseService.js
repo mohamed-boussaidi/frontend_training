@@ -15,6 +15,9 @@ function rejectExpense(id){
 function getExpense(id){
     return axiosInstance.get('/getExpense/'+id)
 }
+function getExpenseSum(id){
+    return axiosInstance.get('/expensesum/'+id)
+}
 function UpdateExpense(data){
     return axiosInstance.put('/UpdateExpense/'+data.id,data)
 }
@@ -29,6 +32,7 @@ export default {
     rejectExpense,
     getExpense,
     UpdateExpense,
-    deleteExpense
+    deleteExpense,
+    getExpenseSum
 
 }

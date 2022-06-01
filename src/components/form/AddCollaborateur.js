@@ -12,7 +12,6 @@ const AddCollaborateur = (props) => {
     const [blob, setBlob] = useState(null)
     const [inputImg, setInputImg] = useState('')
     const [cropend, setCropend] = useState(true)
-
     const getBlob = (blob) => {
         setBlob(blob)
     }

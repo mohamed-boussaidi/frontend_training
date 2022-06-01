@@ -2,6 +2,7 @@ import {Button, Col, FormGroup, Label, Row} from "reactstrap";
 import {AvField, AvForm} from "availity-reactstrap-validation";
 import Select from "react-select";
 import React, {useState,useEffect} from "react";
+import { useAlert } from 'react-alert'
 
 import {withRouter} from "react-router-dom";
 import CongeService from "../../api/CongeService";
@@ -9,11 +10,10 @@ import CongeService from "../../api/CongeService";
 import moment from "moment";
 
 const CongeUser = (props) => {
+    const alert = useAlert()
 
-    const [Conges, setConges] = useState([]);
-    
-    const [loading, setLoading] = useState(true);
 
+    const [loading, setLoading] = useState(false);
 
     const [selectedMultiCongeType, setselectedMultiCongeType] = useState({label: props.data?props.data.type_conge:null, value: props.data?props.data.type_conge:null})
 
@@ -38,7 +38,6 @@ const CongeUser = (props) => {
 
 
     async function addCongeAction(event, values){
-        if(props.data){
             try {
                 const userData  = localStorage.getItem("authUser")?JSON.parse(localStorage.getItem("authUser")):null
                 values.type_conge=selectedMultiCongeType.value
@@ -46,21 +45,15 @@ const CongeUser = (props) => {
                 values.collaborateur_id=userData.data.id
                 const response=await CongeService.addConges(values)
                 if(response.status===200){
-                    props.onRefresh()
+                    alert.success('Demande de conge a ete enregistré')
                 }
             }catch (e) {
-
+                alert.error('Error , Demande de conge')
             }
-        }
     }
 
 
-   
 
-      useEffect( () => {
-        setLoading(true)
-        setLoading(false)
-      }, [])
 
 
 
@@ -85,7 +78,7 @@ const CongeUser = (props) => {
                             <AvField
                                 name="nbr_jrs"
                                 placeholder="Nombre du jours"
-                                type="text"
+                                type="number"
                                 value={props.data?props.data.nbr_jrs:null}
                                 errorMessage=" SVP Entrez votre Nombre du jours"
                                 className="form-control"
@@ -124,7 +117,6 @@ const CongeUser = (props) => {
                                     className="form-control"
                                     type="date"
                                     name={"date_debut"}
-                                    value={props.data?moment(props.data.date_debut).format("YYYY-MM-DD") :null}
                                 />
                             </div>
                         </div>
@@ -141,36 +133,15 @@ const CongeUser = (props) => {
                                     name={"date_fin"}
                                     className="form-control"
                                     type="date"
-                                    value={props.data?moment(props.data.date_fin).format("YYYY-MM-DD") :null}
                                 />
                             </div>
                         </div>
                     </Col>
                     </Row>
-                    <Row>
-                    <Col md="12">
-                        <div className="mb-3">
-                            <label
-                                htmlFor="example-date-input"
-                            >
-                                Date de demande
-                                
-                            </label>
-                            <div className="col-md-13">
-                                <AvField
-                                    name={"date_demande"}
-                                    className="form-control"
-                                    type="date"
-                                    value={props.data?moment(props.data.date_demande).format("YYYY-MM-DD") :null}
-                                />
-                            </div>
-                        </div>
-                    </Col>
-                  </Row>
                 
                 <Col md="50">
     
-                    <FormGroup className="mb-0">
+                    <FormGroup className="mb-5 ">
                         <div>
                             <Button type="submit" color="primary" className="ms-1">
                                 Ajouter

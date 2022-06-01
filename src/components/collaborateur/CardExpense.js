@@ -47,9 +47,10 @@ const CardExpense = (props) => {
                 values.collaborateur_id=userData.data.id
                 const response=await ExpenseService.addExpense(values)
                 if(response.status===200){
-                    props.onRefresh()
+                    alert.success('Demande de note de frais a ete enregistré')
                 }
             }catch (e) {
+                alert.error('Error , Demande de conge')
             }
         }
       useEffect( () => {

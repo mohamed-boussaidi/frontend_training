@@ -16,6 +16,9 @@ function RefuseConge(id){
 function getConge(id){
     return axiosInstance.get('/getConge/'+id)
 }
+function getCongeStat(id){
+    return axiosInstance.get('/getcongestat/'+id)
+}
 function UpdateConges(data){
     return axiosInstance.put('/UpdateConge/'+data.id,data)
 }
@@ -31,6 +34,7 @@ export default {
     addConges,
     getConge,
     RefuseConge,
-    AcceptConge
+    AcceptConge,
+    getCongeStat
 
 }

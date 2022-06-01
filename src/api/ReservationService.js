@@ -6,6 +6,9 @@ function addReservation(data){
 function Reservations(){
     return axiosInstance.get('/Reservations')
 }
+function getReservationStat(id){
+    return axiosInstance.get('/getreservationstat/'+id)
+}
 function deleteReservation(id){
     return axiosInstance.delete('/deleteReservation/'+id)
 }
@@ -13,6 +16,7 @@ function deleteReservation(id){
 export default {
     addReservation,
     Reservations,
-    deleteReservation
+    deleteReservation,
+    getReservationStat
 
 }

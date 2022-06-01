@@ -14,6 +14,7 @@ import Authmiddleware from "./routes/middleware/Authmiddleware"
 import VerticalLayout from "./components/VerticalLayout/"
 import HorizontalLayout from "./components/HorizontalLayout/"
 import NonAuthLayout from "./components/NonAuthLayout"
+import {positions, Provider as AlertProvider, transitions} from 'react-alert'
 
 // Import scss
 import "./assets/scss/theme.scss"
@@ -22,6 +23,7 @@ import "./assets/scss/theme.scss"
 // import { initFirebaseBackend } from "./helpers/firebase_helper"
 
 import fakeBackend from "./helpers/AuthType/fakeBackend"
+import AlertTemplate from "./templates/react-alert-template";
 
 // Activating fake backend
 fakeBackend()
@@ -60,9 +62,21 @@ const App = props => {
     return layoutCls
   }
 
+  const options = {
+    position: positions.BOTTOM_RIGHT,
+    timeout: 5000,
+    offset: '30px',
+    transition: transitions.SCALE,
+    containerStyle: {
+      zIndex: 100,
+    }
+  }
+
   const Layout = getLayout()
   return (
-    <React.Fragment>
+      <AlertProvider template={AlertTemplate} {...options}>
+
+      <React.Fragment>
       <Router>
         <Switch>
           {authRoutes.map((route, idx) => (
@@ -87,6 +101,7 @@ const App = props => {
         </Switch>
       </Router>
     </React.Fragment>
+      </AlertProvider>
   )
 }
 

@@ -57,3 +57,14 @@ export function dataURLtoFile(dataurl, filename) {
 
     return new File([u8arr], filename, {type:mime});
 }
+export function join_String(data) {
+    var string = "";
+    data.map((item, index) => {
+        if (data.length !== index + 1) {
+            string = string + "" + item.label + ",";
+        } else {
+            string = string + "" + item.label;
+        }
+    })
+    return string
+}

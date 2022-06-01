@@ -21,6 +21,9 @@ function Updateorder(data){
 function deleteorder(id){
     return axiosInstance.delete('/deleteorder/'+id)
 }
+function getOrdersstat(id){
+    return axiosInstance.get("/getordersstat/"+id)
+}
 
 export default {
     addorder,
@@ -29,6 +32,7 @@ export default {
     rejectorder,
     getorder,
     Updateorder,
-    deleteorder
+    deleteorder,
+    getOrdersstat
 
 }
