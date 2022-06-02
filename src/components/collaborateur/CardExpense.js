@@ -2,17 +2,13 @@ import {Button, Col, FormGroup, Label, Row} from "reactstrap";
 import {AvField, AvForm} from "availity-reactstrap-validation";
 import Select from "react-select";
 import React, {useState,useEffect} from "react";
-
-import {withRouter} from "react-router-dom";
 import ExpenseService from "../../api/ExpenseService";
-
 import moment from "moment";
+import { useAlert } from 'react-alert'
 
 const CardExpense = (props) => {
-    const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
-
-
+    const alert = useAlert()
     const [selectedMultiTypeDepense, setselectedMultiTypeDepense] = useState({label: props.data?props.data.type_depense:null, value: props.data?props.data.type_depense:null})
 
     function handleSelectedMultiTypeDepense(type_depense) {

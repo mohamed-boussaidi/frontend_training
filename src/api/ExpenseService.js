@@ -18,6 +18,9 @@ function getExpense(id){
 function getExpenseSum(id){
     return axiosInstance.get('/expensesum/'+id)
 }
+function expensestat(){
+    return axiosInstance.get('/expensestat')
+}
 function UpdateExpense(data){
     return axiosInstance.put('/UpdateExpense/'+data.id,data)
 }
@@ -33,6 +36,7 @@ export default {
     getExpense,
     UpdateExpense,
     deleteExpense,
-    getExpenseSum
+    getExpenseSum,
+    expensestat
 
 }

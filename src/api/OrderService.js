@@ -21,8 +21,11 @@ function Updateorder(data){
 function deleteorder(id){
     return axiosInstance.delete('/deleteorder/'+id)
 }
-function getOrdersstat(id){
-    return axiosInstance.get("/getordersstat/"+id)
+function getOrderstatByCollaborateur(id){
+    return axiosInstance.get("/getorderstatbycollaborateur/"+id)
+}
+function allOrderstat(){
+    return axiosInstance.get("/allorderstat")
 }
 
 export default {
@@ -33,6 +36,7 @@ export default {
     getorder,
     Updateorder,
     deleteorder,
-    getOrdersstat
+    getOrderstatByCollaborateur,
+    allOrderstat
 
 }

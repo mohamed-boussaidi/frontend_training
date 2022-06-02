@@ -19,40 +19,58 @@ import { setBreadcrumbItems } from "../../store/actions";
 import ChartsAppex from "pages/Charts/charts-appex";
 import CollaborateurService from "api/CollaborateurService";
 import { useState } from "react";
+import Loading from "../../components/Loading";
+import ReservationService from "../../api/ReservationService";
+import OrderService from "../../api/OrderService";
+import ExpenseService from "../../api/ExpenseService";
 
 const Dashboard = (props) => {
-  const [statCollaborateurs, setStatCollaborateurs] = useState(null);
+  const [collaborateur, setCollaborateur] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [reports, setReports] = useState(null);
+  const [expense, setExpense] = useState(null);
+  const [order, setOrder] = useState(null);
+  const [reservation, setReservation] = useState(null);
 
   const breadcrumbItems = [
     { title: "SPOC", link: "#" },
     { title: "Tableau de bord", link: "#" }
   ]
-  const  getStatCollaborateurs=async ()=>{
-    const response = await CollaborateurService.StatCollaborateurs()
-      if(response.status===200){
-        setStatCollaborateurs(response.data.nbr_collaborateurs)
-      }
-  }
+
 
 
   useEffect(() => {
     setLoading(true)
-    const timer = setTimeout(() => {
-      getStatCollaborateurs();
-    }, 5000);
+    CollaborateurService.StatCollaborateurs().then(response=>{
+      if(response.status===200){
+        setCollaborateur(
+            { title: "Collaborateurs", iconClass: "account", total: (response.data.nbr?response.data.nbr:0), average: "0%", badgecolor: "warning" },
+        )
+      }
+    })
+    ReservationService.allreservationstat().then(response=>{
+      if(response.status===200){
+        setReservation(
+            { title: "Reservation Salle", iconClass: "table-chair", total: (response.data.nbr?response.data.nbr:0), average: "0%", badgecolor: "warning" },
+        )
+      }
+    })
+    ExpenseService.expensestat().then(response=>{
+      if(response.status===200){
+        setExpense(
+            { title: "Demande de note de frais", iconClass: "cash-check", total: (response.data.nbr?response.data.nbr:0), average: "0%", badgecolor: "warning" },
+        )
+      }
+    })
+    OrderService.allOrderstat().then(response=>{
+      if(response.status===200){
+        setOrder(
+            { title: "Demande de Commande", iconClass: "calendar", total: (response.data.nbr?response.data.nbr:0), average: "0%", badgecolor: "warning" },
+        )
+        setLoading(false)
 
-    setReports([
-      { title: "Utilisateurs", iconClass: "account-group", total: statCollaborateurs?statCollaborateurs:0, average: "+11%", badgecolor: "info" },
-      { title: "Demande conge", iconClass: "bag-suitcase-outline", total: "$46,782", average: "-29%", badgecolor: "danger" },
-      { title: "demande matériel", iconClass: "cellphone-link", total: "$15.9", average: "0%", badgecolor: "warning" },
-      { title: "demande note de frais", iconClass: "cash-check", total: "1890", average: "+89%", badgecolor: "info" }
-        ])
-    setLoading(false)
+      }
+    })
     props.setBreadcrumbItems('Tableau de bord' , breadcrumbItems)
-    return () => clearTimeout(timer);
-
   }, [])
 
 
@@ -64,7 +82,9 @@ const Dashboard = (props) => {
         </MetaTags>
   
         {/*mimi widgets */}
-        {loading ?<></>:<Miniwidget reports={reports} />}
+        {loading || !collaborateur || !expense || !order || !reservation ?
+            <Loading/>
+            :<Miniwidget reports={[reservation,collaborateur,order,expense]} />}
   
         <Row>
           <Col xl="3">

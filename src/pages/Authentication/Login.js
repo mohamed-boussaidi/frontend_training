@@ -126,16 +126,6 @@ const Login = props => {
               </Card>
               <div className="mt-5 text-center">
                 <p>
-                 Vous n&#39;avez pas de compte ?{" "}
-                  <Link
-                    to="register"
-                    className="text-primary"
-                  >
-                    {" "}
-                    Inscrivez-vous{" "}
-                  </Link>{" "}
-                </p>
-                <p>
                   © {new Date().getFullYear()} SPOC
                   <span className="d-none d-sm-inline-block"> - Fabrique avec <i className="mdi mdi-heart text-danger"></i> ISLAM AMOR.</span>
                 </p>

@@ -31,14 +31,14 @@ const DashboardCollaborateur = (props) => {
                 setConge({ title: "Demande de Conge", iconClass: "calendar", total: (reponse.data.sum?reponse.data.sum:0), average: "0%", badgecolor: "warning" })
             }
         })
-        OrderService.getOrdersstat(userData.data.id).then(reponse=>{
+        OrderService.getOrderstatByCollaborateur(userData.data.id).then(reponse=>{
             if (reponse.status===200){
                 setProduct(
                     { title: "Demande de Matriel", iconClass: "basket", total: (reponse.data.nbr?reponse.data.nbr:0), average: "-29%", badgecolor: "danger" },
                 )
             }
         })
-        ReservationService.getReservationStat(userData.data.id).then(reponse=>{
+        ReservationService.reservationstatbycollaborateur(userData.data.id).then(reponse=>{
             if (reponse.status===200){
                 setReservation(
                     { title: "Reservation Salle", iconClass: "table-chair", total: (reponse.data.nbr?reponse.data.nbr:0), average: "0%", badgecolor: "warning" },

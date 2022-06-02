@@ -6,8 +6,11 @@ function addReservation(data){
 function Reservations(){
     return axiosInstance.get('/Reservations')
 }
-function getReservationStat(id){
-    return axiosInstance.get('/getreservationstat/'+id)
+function reservationstatbycollaborateur(id){
+    return axiosInstance.get('/reservationstatbycollaborateur/'+id)
+}
+function allreservationstat(){
+    return axiosInstance.get('/allreservationstat')
 }
 function deleteReservation(id){
     return axiosInstance.delete('/deleteReservation/'+id)
@@ -17,6 +20,7 @@ export default {
     addReservation,
     Reservations,
     deleteReservation,
-    getReservationStat
+    reservationstatbycollaborateur,
+    allreservationstat
 
 }
