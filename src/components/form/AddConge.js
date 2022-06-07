@@ -6,10 +6,12 @@ import React, {useState,useEffect} from "react";
 import {withRouter} from "react-router-dom";
 import CongeService from "../../api/CongeService";
 import CollaborateurService from "../../api/CollaborateurService";
+import { useAlert } from 'react-alert'
 
 import moment from "moment";
 
 const AddConge = (props) => {
+    const alert = useAlert() 
     const [users, setUsers] = useState([]);
     const [optionscollaborateur, setOptionsCollaborateur] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -51,10 +53,12 @@ const AddConge = (props) => {
                 const response=await CongeService.UpdateConges(values)
                 if(response.status===200){
                     props.onRefresh()
+                    alert.success(' Conge a été enregistré')
 
                 }
 
             }catch (e) {
+                alert.error('Erreur demande')
 
             }
         }else{
@@ -66,8 +70,12 @@ const AddConge = (props) => {
                 const response=await CongeService.addConges(values)
                 if(response.status===200){
                     props.onRefresh()
+                    alert.success('Demande Conge a été modifier')
+
                 }
+
             }catch (e) {
+                alert.error('Erreur demande')
 
             }
         }
@@ -109,7 +117,6 @@ const AddConge = (props) => {
                         addCongeAction(e, v)
                     }}
             >
-                <h4 className="card-title" class="d-flex flex-column align-items-center my-2 bg-primary" >Passer une demande de congé </h4>
                 <Row>
                 <Col md="6">
                         <div className="mb-3 templating-select select2-container">

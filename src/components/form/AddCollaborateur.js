@@ -7,8 +7,11 @@ import CollaborateurService from "../../api/CollaborateurService";
 import moment from "moment";
 import ImageCropper from "../ImageCropper";
 import {dataURLtoFile} from "../../utlis/functions";
+import { useAlert } from 'react-alert'
 
 const AddCollaborateur = (props) => {
+    const alert = useAlert()
+
     const [blob, setBlob] = useState(null)
     const [inputImg, setInputImg] = useState('')
     const [cropend, setCropend] = useState(true)
@@ -118,9 +121,12 @@ const AddCollaborateur = (props) => {
                 const response=await CollaborateurService.UpdateCollaborateurs(values)
                 if(response.status===200){
                     props.onRefresh()
+                    alert.success('Collaborateur a ete enregistré')
+
                 }
 
             }catch (e) {
+                alert.error('Erreur Collaborateur')
 
             }
         }else{
@@ -132,8 +138,11 @@ const AddCollaborateur = (props) => {
                 const response=await CollaborateurService.addCollaborateurs(values)
                 if(response.status===200){
                     props.onRefresh()
+                    alert.success('Collaborateur a ete enregistré')
+
                 }
             }catch (e) {
+                alert.error('Erreur Collaborateur')
 
             }
         }
@@ -172,7 +181,7 @@ const AddCollaborateur = (props) => {
                                 <div className="image-upload-wrap">
                                     <input className="file-upload-input" type="file" accept="image/*" onChange={onInputChange}/>
                                     <div className="drag-text">
-                                        <h3>Drag and drop a file or select add Image</h3>
+                                        <h3>Faites glisser et déposez un fichier ou sélectionnez ajouter une image</h3>
                                     </div>
                                 </div>
                             </div>

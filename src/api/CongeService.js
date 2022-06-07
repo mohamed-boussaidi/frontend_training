@@ -24,7 +24,7 @@ function UpdateConges(data){
 }
 
 function deleteConges(id){
-    return axiosInstance.delete('/deleteConges/'+id)
+    return axiosInstance.delete('/deleteConge/'+id)
 }
 
 export default {

@@ -59,7 +59,7 @@ const ExpenseReport = (props) => {
     },
     {
       title: "Type de dépense",
-      field: "type_depense",
+      field: "type_depense.n",
       sort: "asc",
       width: 100,
 
@@ -152,12 +152,12 @@ const ExpenseReport = (props) => {
             <div className="text-end float-end pt-3 p-3 ">
               <button  className="btn btn-primary  w-md waves-effect waves-light"
                        onClick={handleShow} type="submit">
-                <i className="mdi mdi-account-plus"></i>
+               <b>+ Ajouter</b>
               </button>
             </div>
             <CardBody>
               <MaterialTable
-                  title={"Expenses"}
+                  title={"Note de frais"}
                   columns={columns}
                   data={expenses}
                   actions={actions}
@@ -236,7 +236,7 @@ const ExpenseReport = (props) => {
       </Row>
       <Popup visibility={openModal}
              closeAction={handleClose}
-             title={"Ajouter Congé"}
+             title={expense?"Mise a jour note de frais":" Ajouter note de frais"}
              class="text-center"
       >
  <AddExpense data={expense}

@@ -6,10 +6,12 @@ import React, {useState,useEffect} from "react";
 import {withRouter} from "react-router-dom";
 import ExpenseService from "../../api/ExpenseService";
 import CollaborateurService from "../../api/CollaborateurService";
+import { useAlert } from 'react-alert'
 
 import moment from "moment";
 
 const AddExpense = (props) => {
+    const alert = useAlert() 
     const [users, setUsers] = useState([]);
     const [optionscollaborateur, setOptionsCollaborateur] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -53,10 +55,12 @@ const AddExpense = (props) => {
                 const response=await ExpenseService.UpdateExpense(values)
                 if(response.status===200){
                     props.onRefresh()
-
+                 alert.success('Note de frais a ete modifier')
+    
                 }
 
             }catch (e) {
+                alert.error('Erreur note de frais')
 
             }
         }else{
@@ -68,9 +72,10 @@ const AddExpense = (props) => {
                 const response=await ExpenseService.addExpense(values)
                 if(response.status===200){
                     props.onRefresh()
+                    alert.success('Demande note de frais a été enregistré')
                 }
             }catch (e) {
-
+                alert.error('Erreur note de frais')
             }
         }
     }
@@ -112,7 +117,7 @@ const AddExpense = (props) => {
                         addExpenseAction(e, v)
                     }}
             >
-                <h4 className="card-title" class="d-flex flex-column align-items-center my-2 bg-primary" >Passer une demande note de frais </h4>
+               
                 <Row>
                 <Col md="6">
                         <div className="mb-3 templating-select select2-container">

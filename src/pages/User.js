@@ -72,48 +72,14 @@ const User = (props) => {
       width: 100,
 
     },
-    {
-      title: "Adresse",
-      field: "adresse",
-      sort: "asc",
-      width: 100,
-    },
+
     {
       title: "Carte d'identite",
       field: "cin",
       sort: "asc",
       width: 100,
     },
-    {
-      title: "Civilite",
-      field: "sexe",
-      sort: "asc",
-      width: 100,
-    },
 
-    {
-      title: "Code Postale",
-      field: "code_postale",
-      sort: "asc",
-      width: 100,
-
-    },
-    {
-      render: rowData => <div> {moment(rowData.date_entree).format("YYYY-MM-DD")}</div>,
-      title: "Date entree",
-      field: "date_entree",
-      sort: "asc",
-      width: 100,
-
-    },
-    {
-      render: rowData => <div> {moment(rowData.date_sortie).format("YYYY-MM-DD")}</div>,
-      title: "Date Sortie",
-      field: "date_sortie",
-      sort: "asc",
-      width: 100,
-
-    },
     {
       title: "Departement",
       field: "departement",
@@ -150,20 +116,8 @@ const User = (props) => {
       width: 100,
 
     },
-    {
-      title: "Type Contrat",
-      field: "type_contrat",
-      sort: "asc",
-      width: 100,
-
-    },
-    {
-      title: "Ville",
-      field: "ville",
-      sort: "asc",
-      width: 100,
-
-    }
+  
+  
   ]
 
   async function activateEditPopup(id){

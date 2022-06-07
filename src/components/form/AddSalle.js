@@ -7,10 +7,13 @@ import {withRouter} from "react-router-dom";
 import SalleService from "../../api/SalleService";
 import ImageCropper from "../ImageCropper";
 import {dataURLtoFile} from "../../utlis/functions";
+import { useAlert } from 'react-alert'
 
 import moment from "moment";
 
 const AddSalle = (props) => {
+    const alert = useAlert() 
+
     const [blob, setBlob] = useState(null)
     const [inputImg, setInputImg] = useState('')
     const [cropend, setCropend] = useState(true)
@@ -180,9 +183,7 @@ const AddSalle = (props) => {
 
 
 </div>
-                
-                <h4 className="card-title" class="d-flex flex-column align-items-center my-2 bg-primary center"  >Ajouter Salle</h4>
-                <Row>
+                                <Row>
                     <Col md="6">
                         <div className="mb-3">
                             <Label htmlFor="validationCustom01">Nom</Label>

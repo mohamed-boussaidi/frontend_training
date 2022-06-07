@@ -19,7 +19,6 @@ const TemplateUser = props => {
             imgUrl: process.env.REACT_APP_URL_IMAGES_USERS + userData.data.image,
             designation: userData.data.fonction,
             name: userData.data.nom + " " + userData.data.prenom,
-            desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium",
             socials: [
                 {id: 1, title: "Facebook", icon: "fab fa-facebook-f", link: "#", colorclass: "primary"},
                 {id: 2, title: "Twitter", icon: "fab fa-twitter", link: "#", colorclass: "info"},

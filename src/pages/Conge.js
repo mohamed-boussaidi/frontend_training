@@ -51,7 +51,7 @@ const Conge = (props) => {
     },
   
     {
-      render: rowData => <div> {moment(rowData.date_naissance).format("YYYY-MM-DD")}</div>,
+      render: rowData => <div> {moment(rowData.date_demande).format("YYYY-MM-DD")}</div>,
       title: "Date de demande",
       field: "date_demande",
       sort: "asc",
@@ -60,7 +60,7 @@ const Conge = (props) => {
     },
     
     {
-      render: rowData => <div> {moment(rowData.date_entree).format("YYYY-MM-DD")}</div>,
+      render: rowData => <div> {moment(rowData.date_debut).format("YYYY-MM-DD")}</div>,
       title: "Date de debut",
       field: "date_debut",
       sort: "asc",
@@ -68,7 +68,7 @@ const Conge = (props) => {
 
     },
     {
-      render: rowData => <div> {moment(rowData.date_sortie).format("YYYY-MM-DD")}</div>,
+      render: rowData => <div> {moment(rowData.date_fin).format("YYYY-MM-DD")}</div>,
       title: "Date de fin",
       field: "date_fin",
       sort: "asc",
@@ -163,7 +163,7 @@ const Conge = (props) => {
             <div className="text-end float-end pt-3 p-3 ">
               <button  className="btn btn-primary  w-md waves-effect waves-light"
                        onClick={handleShow} type="submit">
-                <i className="mdi mdi-account-plus"></i>
+                <b>+ Ajouter</b>
               </button>
             </div>
             <CardBody>
@@ -247,7 +247,7 @@ const Conge = (props) => {
       </Row>
       <Popup visibility={openModal}
              closeAction={handleClose}
-             title={"Ajouter Congé"}
+             title={conge?"Mise a jour Congé":"Ajouter Congé"}
              class="text-center"
       >
     <AddConge data={conge}

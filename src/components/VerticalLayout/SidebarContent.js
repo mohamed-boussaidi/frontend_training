@@ -104,13 +104,19 @@ const SidebarContent = props => {
             <li>
               <Link to="/user" className=" waves-effect">
                 <i className="mdi mdi-account-group"></i>
-                <span>{props.t("User")}</span>
+                <span>{props.t("Collaborateur")}</span>
               </Link>
             </li>
             <li>
               <Link to="/expensereport" className=" waves-effect">
                 <i className="mdi mdi-cash-check"></i>
-                <span>{props.t("Expense report")}</span>
+                <span>{props.t("Note de frais")}</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/TypeDepense" className=" waves-effect">
+                <i className="mdi mdi-cash-check"></i>
+                <span>{props.t("type de depense")}</span>
               </Link>
             </li>
             <li>

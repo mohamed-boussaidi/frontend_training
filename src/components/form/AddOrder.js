@@ -111,7 +111,7 @@ const AddOrder = (props) => {
                         addExpenseAction(e, v)
                     }}
             >
-                <h4 className="card-title" class="d-flex flex-column align-items-center my-2 bg-primary" >Passer une demande note de frais </h4>
+                <h4 className="card-title" class="d-flex flex-column align-items-center my-2 bg-primary" >Passer une demande matériels </h4>
                 <Row>
                 <Col md="6">
                         <div className="mb-3 templating-select select2-container">

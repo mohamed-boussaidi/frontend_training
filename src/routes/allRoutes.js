@@ -23,6 +23,7 @@ import Dashboard from "../pages/Dashboard/index"
 import User from "../pages/User" 
 import ExpenseReport from "../pages/ExpenseReport"
 import Salle from "../pages/Salle"
+import Depense from "../pages/TypeDepense"
 
 import Formulaire from "pages/Formulaire"
 import Products from "pages/Products"
@@ -45,6 +46,7 @@ const userRoutes = [
   { path: "/conge", component: Conge },
   { path: "/user", component: User },
   { path: "/ExpenseReport", component: ExpenseReport },
+  { path: "/TypeDepense", component: Depense },
   { path: "/Salle", component: Salle },
   { path: "/formulaire", component: Formulaire },
   { path: "/Product", component: Products },

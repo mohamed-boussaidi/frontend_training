@@ -58,14 +58,14 @@ const Salle = (props) => {
 
     },
     {
-      title: "Les nombres du place",
+      title: "Nombre de places",
       field: "nbr_place",
       sort: "asc",
       width: 100,
 
     },
     {
-      title: "Les Equipement",
+      title: "Les Equipements",
       field: "equipements",
       sort: "asc",
       width: 100,
@@ -134,7 +134,7 @@ const Salle = (props) => {
             <div className="text-end float-end pt-3 p-3 ">
               <button  className="btn btn-primary  w-md waves-effect waves-light"
                        onClick={handleShow} type="submit">
-                <i className="mdi mdi-account-plus"></i>
+                <b>+ Ajouter</b>
               </button>
             </div>
             <CardBody>

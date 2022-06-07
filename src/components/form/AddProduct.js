@@ -9,9 +9,10 @@ import ProductService from "../../api/ProductService";
 import moment from "moment";
 import ImageCropper from "../ImageCropper";
 import {dataURLtoFile} from "../../utlis/functions";
+import { useAlert } from 'react-alert'
 
 const AddProduct = (props) => {
-
+    const alert = useAlert() 
     const [blob, setBlob] = useState(null)
     const [inputImg, setInputImg] = useState('')
     const [cropend, setCropend] = useState(true)
@@ -81,10 +82,12 @@ const AddProduct = (props) => {
                 const response=await ProductService.UpdateProduct(values)
                 if(response.status===200){
                     props.onRefresh()
+                    alert.success(' Matériel a été enregistré')
 
                 }
 
             }catch (e) {
+                alert.error('Erreur matériel')
 
             }
         }else{
@@ -95,8 +98,12 @@ const AddProduct = (props) => {
                 const response=await ProductService.addproduct(values)
                 if(response.status===200){
                     props.onRefresh()
+                    alert.success('Matériel a été modifier')
+
                 }
+
             }catch (e) {
+                alert.error('Erreur Matériel')
 
             }
         }
@@ -137,7 +144,7 @@ const AddProduct = (props) => {
                 <div className="image-upload-wrap">
                     <input className="file-upload-input" type="file" accept="image/*" onChange={onInputChange}/>
                     <div className="drag-text">
-                        <h3>Drag and drop a file or select add Image</h3>
+                        <h3>Faites glisser et déposez un fichier ou sélectionnez ajouter une image </h3>
                     </div>
                 </div>
             </div>
