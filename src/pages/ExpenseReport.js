@@ -59,7 +59,7 @@ const ExpenseReport = (props) => {
     },
     {
       title: "Type de dépense",
-      field: "type_depense.n",
+      field: "type_depense.nom",
       sort: "asc",
       width: 100,
 

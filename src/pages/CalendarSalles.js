@@ -12,10 +12,13 @@ import ReservationService from "../api/ReservationService";
 import {
   useParams
 } from "react-router-dom";
+import {useAlert} from "react-alert";
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
 
 export default function CalendarSalles(props) {
+  const alert = useAlert()
+
   let { id } = useParams();
 
   const [salle_id, setSalle_id] = useState(id);
@@ -29,9 +32,22 @@ export default function CalendarSalles(props) {
 
 
   const handleSelect = ({ start, end }) => {
+    const eventsForThisDay = eventsData.filter(
+        event => (event.start > start && event.start < end) || (event.end > start && event.end < end)
+    );
+    if(new Date() > start){
+      alert.error('La date de réservation doit être supérieure à la date actuelle '+new Date())
+    }else {
+    if (eventsForThisDay.length!==0){
+      alert.error('Cette Salle est déjà réservée en ce moment ')
+
+    }else {
       setStart(start)
       setEnd(end)
-    handleShow()
+      handleShow()
+    }
+    }
+
   };
   async function  getReservations(){
     setLoading(true)
@@ -73,6 +89,7 @@ export default function CalendarSalles(props) {
                 style={{ height: "100vh" }}
                 onSelectEvent={(event) => alert(event.title)}
                 onSelectSlot={handleSelect}
+
             />
             :
             <></>
