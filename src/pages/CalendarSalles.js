@@ -95,7 +95,7 @@ export default function CalendarSalles(props) {
             <></>
       }
 
-               <Popup visibility={openModal} closeAction={handleClose} title={"Ajouter une salle"} class="text-center" >
+               <Popup visibility={openModal} closeAction={handleClose} title={"Reservé une Salle"} class="text-center" >
                    {openModal
                        ?
                        <AddReservation start={start} end={end} salle_id={salle_id} onRefresh={onRefresh}>
