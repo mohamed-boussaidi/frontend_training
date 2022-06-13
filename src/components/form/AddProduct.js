@@ -60,6 +60,8 @@ const AddProduct = (props) => {
                 {label: "Smartphone", value: "Smartphone"},
                 {label: "Tablette", value: "Tablette"},
                 {label: "Ipade", value: "Ipade"},
+                {label: "périphérique sortie ", value: "périphérique sortie"},
+                {label: "périphérique d'entrée ", value: "périphérique d'entrée"},
             ]
         },
     ]
@@ -82,12 +84,13 @@ const AddProduct = (props) => {
                 const response=await ProductService.UpdateProduct(values)
                 if(response.status===200){
                     props.onRefresh()
-                    alert.success(' Matériel a été enregistré')
+                    alert.success('Matériel a été modifier avec succés')
+                 
 
                 }
 
             }catch (e) {
-                alert.error('Erreur matériel')
+                alert.error('Erreur modification')
 
             }
         }else{
@@ -98,8 +101,8 @@ const AddProduct = (props) => {
                 const response=await ProductService.addproduct(values)
                 if(response.status===200){
                     props.onRefresh()
-                    alert.success('Matériel a été modifier')
-
+                    
+                    alert.success(' Matériel a été ajouter avec succés ')
                 }
 
             }catch (e) {
@@ -176,7 +179,6 @@ const AddProduct = (props) => {
 
 
 </div>
-                <h4 className="card-title" class="d-flex flex-column align-items-center my-2 bg-primary" >Ajouter un matériel </h4>
              
                 <Row>
                     <Col md="6">
@@ -199,10 +201,10 @@ const AddProduct = (props) => {
                             <Label htmlFor="validationCustom01">Modèle</Label>
                             <AvField
                                 name="modele"
-                                placeholder="Nombre du jours"
+                                placeholder="modele"
                                 type="text"
                                 value={props.data?props.data.modele:null}
-                                errorMessage=" SVP Entrez votre Nombre du jours"
+                                errorMessage=" SVP Entrez le Modèle"
                                 className="form-control"
                                 validate={{ required: { value: true } }}
                                 id="validationCustom01"
@@ -217,7 +219,7 @@ const AddProduct = (props) => {
                         <div className="mb-3 templating-select select2-container">
                             <label className="control-label">type</label>
                             <Select
-                                placeholder="Nombre du jours"
+                                placeholder="type"
                                 value={selectedMultiTypeProduct}
                                 onChange={(e) => {
                                     handleSelectedMultiTypeProduct(e)
@@ -234,10 +236,10 @@ const AddProduct = (props) => {
                             <Label htmlFor="validationCustom01">Prix</Label>
                             <AvField
                                 name="prix"
-                                placeholder="Nombre du jours"
+                                placeholder="Prix"
                                 type="text"
                                 value={props.data?props.data.prix:null}
-                                errorMessage=" SVP Entrez votre Nombre du jours"
+                                errorMessage=" SVP Entrez le Prix"
                                 className="form-control"
                                 validate={{ required: { value: true } }}
                                 id="validationCustom01"
@@ -255,7 +257,7 @@ const AddProduct = (props) => {
                             <Button type="submit" color="primary" className="ms-1">
                                 {props.data?"Mise a jour":"Ajouter"}
                             </Button>
-                            <Button type="reset" color="secondary" href="/user">
+                            <Button type="reset" color="secondary" href="/Product">
                                 Annuler
                             </Button>
                         </div>

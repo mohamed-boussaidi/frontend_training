@@ -51,9 +51,9 @@ const Conge = (props) => {
     },
   
     {
-      render: rowData => <div> {moment(rowData.date_demande).format("YYYY-MM-DD")}</div>,
+      render: rowData => <div> {moment(rowData.created_at).format("YYYY-MM-DD")}</div>,
       title: "Date de demande",
-      field: "date_demande",
+      field: "created_at",
       sort: "asc",
       width: 100,
 
@@ -94,7 +94,7 @@ const Conge = (props) => {
       field: "status",
       sort: "asc",
       width: 100,
-      render:rowData=> <span className={rowData.status==="pendding"?"badge bg-warning ":rowData.status==="accepted"?"badge bg-success":"badge bg-danger" }> <h5>{rowData.status}</h5></span>
+      render:rowData=> <span className={rowData.status==="pendding"?"badge bg-warning ":rowData.status==="accepted"?"badge bg-success":"badge bg-danger" }> <h5>{rowData.status==="pendding"?"En cours... ":rowData.status==="accepted"?"Accepter":"Refuser" }</h5></span>
 
     },
   ]
@@ -133,7 +133,7 @@ const Conge = (props) => {
     },
     {
       icon: 'edit',
-      tooltip: 'Edit Conge',
+      tooltip: ' Conge',
       onClick: (event, rowData) => activateEditPopup(rowData.id)
     },
 

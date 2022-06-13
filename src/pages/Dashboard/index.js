@@ -98,19 +98,7 @@ const Dashboard = (props) => {
           </Col>
   
         </Row>
-        <Row>
-          <Col xl="7">
-            {/* Email sent */}
-            <EmailSent />
-          </Col>
-          <Col xl="5">
-            {/* materiel */}
-            <RecentActivity />
-          </Col>
-        </Row>
-  
-       
-  
+   
       </React.Fragment>
     )
   

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
+import { Calendar, momentLocalizer, WorkWeek } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import Popup from "../components/Popup"
@@ -13,7 +13,13 @@ import {
   useParams
 } from "react-router-dom";
 import {useAlert} from "react-alert";
-moment.locale("en-GB");
+import 'moment/locale/fr';
+
+import {
+
+  Link,
+} from "react-router-dom";
+moment.locale("fr");
 const localizer = momentLocalizer(moment);
 
 export default function CalendarSalles(props) {
@@ -76,6 +82,14 @@ export default function CalendarSalles(props) {
     <Container>
     <React.Fragment>
     <TemplateUser>
+    <Link
+    style={{paddingBottom:"10px"}}
+  to={{
+    pathname: "/profile",
+    state: { selecedTab: "2" }
+  }}
+><b ><i className="mdi mdi-arrow-left-box text-primary p-2 pb-4 font-size-18"></i> <b className="font-size-16 ">Retour</b></b>
+  </Link>
       {
         eventsData
           ?
@@ -89,6 +103,16 @@ export default function CalendarSalles(props) {
                 style={{ height: "100vh" }}
                 onSelectEvent={(event) => alert(event.title)}
                 onSelectSlot={handleSelect}
+                messages={{
+                  next: "Suivant",
+                  previous: "Précéndent",
+                  today: "Aujourd'hui",
+                  month: "Mois",
+                  week: "Semaine",
+                  day: "Jour",
+                  agenda:"Agenda",
+                  work_week:"Semaine de travail"
+                }}
 
             />
             :

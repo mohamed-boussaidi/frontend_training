@@ -16,7 +16,7 @@ import DashboardCollaborateur from "../../components/collaborateur/DashboardColl
 
 
 function CardUser(props){
-    const [currentActiveTab, setCurrentActiveTab] = useState('1');
+    const [currentActiveTab, setCurrentActiveTab] = useState(props.selecedTab?props.selecedTab:'1');
 
 
   
@@ -91,14 +91,15 @@ function CardUser(props){
                 <TabPane tabId="4">
                     <Row>
                         <Col sm="12">
-                            <CongeUser />
+                        {currentActiveTab==="4"?  <CongeUser />:<></>}
                         </Col>
                     </Row>
                 </TabPane>
                 <TabPane tabId="5">
                     <Row>
                         <Col sm="12">
-                        <CardExpense />
+                        {currentActiveTab==="5"?  <CardExpense />:<></>}
+        
                         </Col>
                     </Row>
                 </TabPane>

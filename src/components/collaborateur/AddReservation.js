@@ -99,24 +99,6 @@ const AddReservation = (props) =>{
                 </Row>
                 <Row>
                     <Col md="6">
-                        <div className="mb-3 templating-select select2-container">
-                            <label className="control-label">Matériel Disponible</label>
-                            <Select
-                                value={selectedMulti1}
-                                isMulti={true}
-                                onChange={(e) => {
-                                    handleMulti1(e)
-                                }}
-                                options={optionGroup1}
-                                classNamePrefix="select2-selection"
-                                closeMenuOnSelect={false}
-                            />
-                        </div>
-
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md="6">
                         <div className="mb-3">
                             <label
                                 htmlFor="example-time-input"
@@ -153,6 +135,24 @@ const AddReservation = (props) =>{
 
                             />
                         </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md="12">
+                        <div className="mb-3 templating-select select2-container">
+                            <label className="control-label">Matériel Disponible</label>
+                            <Select
+                                value={selectedMulti1}
+                                isMulti={true}
+                                onChange={(e) => {
+                                    handleMulti1(e)
+                                }}
+                                options={optionGroup1}
+                                classNamePrefix="select2-selection"
+                                closeMenuOnSelect={false}
+                            />
+                        </div>
+
                     </Col>
                 </Row>
                 <Col md="50">

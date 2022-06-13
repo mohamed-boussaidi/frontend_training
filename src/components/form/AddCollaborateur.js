@@ -392,11 +392,8 @@ const AddCollaborateur = (props) => {
                         />
                     </div>
                 </Col>
-                {props.data
-                ?
-                <></>
-                :
-                    <Row>
+           
+                    
                         <Col md="6">
                             <div className="mb-3">
                                 <Label htmlFor="validationCustom04">Password</Label>
@@ -411,9 +408,8 @@ const AddCollaborateur = (props) => {
                                 />
                             </div>
                         </Col>
-                    </Row>
-                }
-
+                    
+               
             </Row>
             <h4 className="card-title" class="d-flex flex-column align-items-center my-2 bg-primary" >CONTRAT</h4>
             <Row>

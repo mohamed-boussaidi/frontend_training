@@ -71,7 +71,7 @@ const orders = (props) => {
       field: "status",
       sort: "asc",
       width: 100,
-      render:rowData=> <span className={rowData.status==="pendding"?"badge bg-warning ":rowData.status==="accepted"?"badge bg-success":"badge bg-danger" }> <h5>{rowData.status}</h5></span>
+      render:rowData=> <span className={rowData.status==="pendding"?"badge bg-warning ":rowData.status==="accepted"?"badge bg-success":"badge bg-danger" }> <h5>{rowData.status==="pendding"?"En cours... ":rowData.status==="accepted"?"Accepter":"Refuser" }</h5></span>
 
     },
   ]
@@ -100,17 +100,17 @@ const orders = (props) => {
   const actions = [
     {
       icon: 'check',
-      tooltip: 'Accept Expense',
+      tooltip: 'Accepter matériel',
       onClick: (event, rowData) => acceptOrder(rowData.id)
     },
     {
       icon: 'clear',
-      tooltip: 'Reject Expense',
+      tooltip: 'Refuser matériel',
       onClick: (event, rowData) => rejectOrder(rowData.id)
     },
     {
       icon: 'edit',
-      tooltip: 'Edit Order',
+      tooltip: 'Modifier matériel',
       onClick: (event, rowData) => activateEditPopup(rowData.id)
     },
 

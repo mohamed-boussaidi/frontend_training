@@ -50,9 +50,9 @@ const ExpenseReport = (props) => {
 
     },
     {
-      render: rowData => <div> {moment(rowData.date_naissance).format("YYYY-MM-DD")}</div>,
+      render: rowData => <div> {moment(rowData.created_at).format("YYYY-MM-DD")}</div>,
       title: "Date de demande",
-      field: "date_demande",
+      field: "created_at",
       sort: "asc",
       width: 100,
 
@@ -62,6 +62,7 @@ const ExpenseReport = (props) => {
       field: "type_depense.nom",
       sort: "asc",
       width: 100,
+      render :rowData => <b>{rowData.type_depense.nom}</b>
 
     },
     {
@@ -83,7 +84,7 @@ const ExpenseReport = (props) => {
       field: "status",
       sort: "asc",
       width: 100,
-      render:rowData=> <span className={rowData.status==="pendding"?"badge bg-warning ":rowData.status==="accepted"?"badge bg-success":"badge bg-danger" }> <h5>{rowData.status}</h5></span>
+      render:rowData=> <span className={rowData.status==="pendding"?"badge bg-warning ":rowData.status==="accepted"?"badge bg-success":"badge bg-danger" }> <h5>{rowData.status==="pendding"?"En cours ":rowData.status==="accepted"?"Accepter":"Refuser" }</h5></span>
 
     },
   ]
@@ -112,17 +113,17 @@ const ExpenseReport = (props) => {
   const actions = [
     {
       icon: 'check',
-      tooltip: 'Accept Expense',
+      tooltip: 'Accepter note de frais',
       onClick: (event, rowData) => acceptExpense(rowData.id)
     },
     {
       icon: 'clear',
-      tooltip: 'Reject Expense',
+      tooltip: 'Refuser note de frais',
       onClick: (event, rowData) => rejectExpense(rowData.id)
     },
     {
       icon: 'edit',
-      tooltip: 'Edit Expense',
+      tooltip: 'Modifier Expense',
       onClick: (event, rowData) => activateEditPopup(rowData.id)
     },
 

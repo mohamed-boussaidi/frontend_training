@@ -51,11 +51,19 @@ import Loading from "../Loading";
                                                          alt="Card image cap"/>
                                                     <div className="card-body">
                                                         <h5 className="card-title">{item.nom_du_salle}</h5>
+                                                        <Row>
+                                                            <div className="col-6"><h5>Nombre du place:</h5></div>
+                                                            <div className="col-6 card-title  ">{item.nbr_place}</div>
+                                                        </Row>
+                                                        <Row>
+                                                            <div className="col-6"><h5>Equipements:</h5></div>
+                                                            <div className="col-6 card-title  font-size-14 ">{item.equipements}</div>
+                                                        </Row>
                                                         <div className="row">
-                                                            <div className="col-10"><h5>Nombre du place:</h5></div>
-                                                            <div className="card-title col-2 ">{item.nbr_place}</div>
+                                                            <div className="col-6"><h5>Etage:</h5></div>
+                                                            <div className="col-6  ">{item.etage}</div>
                                                         </div>
-                                                        <h5 className="card-title">{item.nom_du_salle}</h5>
+                                                      
                                                         <a href={"/calendarsalles/" + item.id}
                                                            className="btn btn-primary">Réservation</a>
                                                     </div>

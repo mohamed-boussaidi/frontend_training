@@ -95,28 +95,16 @@ const Login = props => {
 
                       <div className="mb-3 row mt-4">
                         <div className="col-6">
-                          <div className="form-check">
-                            <input
-                              type="checkbox"
-                              className="form-check-input"
-                              id="customControlInline"
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor="customControlInline"
-                            >
-                              Remember me
-                            </label>
-                          </div>
+                         
                         </div>
 
                         <div className="col-6 text-end">
-                          <button className="btn btn-primary w-md waves-effect waves-light" type="submit">connection</button>
+                          <button className="btn btn-primary w-md waves-effect waves-light" type="submit">Se connecter</button>
                         </div>
                       </div>
                       <div className="form-group mb-0 row">
                         <div className="col-12 mt-4">
-                          <Link to="/forgot-password" className="text-muted"><i className="mdi mdi-lock"></i> Mot de passe oublié?</Link>
+                          
                         </div>
                       </div>
 

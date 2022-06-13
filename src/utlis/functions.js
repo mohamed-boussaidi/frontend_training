@@ -68,3 +68,24 @@ export function join_String(data) {
     })
     return string
 }
+export function join_String_save(data) {
+    var string = "";
+    data.map((item, index) => {
+        if (data.length !== index + 1) {
+            string = string + "" + item.value + ",";
+        } else {
+            string = string + "" + item.value;
+        }
+    })
+    return string
+}
+export function array_to_select_options_list(data) {
+    const data_array = [];
+    data.map((item) => {
+        var itemdata = {value: item, label: item};
+        data_array.push(itemdata)
+    })
+    return data_array
+}
+
+

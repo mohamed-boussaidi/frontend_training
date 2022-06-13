@@ -88,7 +88,7 @@ const Product = (props) => {
   const actions = [
     {
       icon: 'edit',
-      tooltip: 'Edit Product',
+      tooltip: 'Modifer Product',
       onClick: (event, rowData) => activateEditPopup(rowData.id)
     }
   ]

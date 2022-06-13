@@ -53,12 +53,12 @@ const AddConge = (props) => {
                 const response=await CongeService.UpdateConges(values)
                 if(response.status===200){
                     props.onRefresh()
-                    alert.success(' Conge a été enregistré')
+                    alert.success(' Conge a été modifier avec succés')
 
                 }
 
             }catch (e) {
-                alert.error('Erreur demande')
+                alert.error('Erreur modification')
 
             }
         }else{
@@ -70,12 +70,12 @@ const AddConge = (props) => {
                 const response=await CongeService.addConges(values)
                 if(response.status===200){
                     props.onRefresh()
-                    alert.success('Demande Conge a été modifier')
+                    alert.success('Demande Conge a été enregistrer avec succés')
 
                 }
 
             }catch (e) {
-                alert.error('Erreur demande')
+                alert.error('Erreur enregistrement')
 
             }
         }
@@ -118,7 +118,7 @@ const AddConge = (props) => {
                     }}
             >
                 <Row>
-                <Col md="6">
+                <Col md="12">
                         <div className="mb-3 templating-select select2-container">
                             <label className="control-label">Collaborateur</label>
                             <Select
@@ -208,26 +208,7 @@ const AddConge = (props) => {
                         </div>
                     </Col>
                     </Row>
-                    <Row>
-                    <Col md="12">
-                        <div className="mb-3">
-                            <label
-                                htmlFor="example-date-input"
-                            >
-                                Date de demande
-                                
-                            </label>
-                            <div className="col-md-13">
-                                <AvField
-                                    name={"date_demande"}
-                                    className="form-control"
-                                    type="date"
-                                    value={props.data?moment(props.data.date_demande).format("YYYY-MM-DD") :null}
-                                />
-                            </div>
-                        </div>
-                    </Col>
-                  </Row>
+                  
                 
                 <Col md="50">
     

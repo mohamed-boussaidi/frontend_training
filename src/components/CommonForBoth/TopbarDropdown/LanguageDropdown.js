@@ -45,7 +45,7 @@ const LanguageDropdown = () => {
           />
          {" "}
             {get(languages, `${selectedLang}.label`)}{" "}
-            <span className="mdi mdi-chevron-down"></span>
+            
         </DropdownToggle>
         <DropdownMenu className="language-switch dropdown-menu-end">
           {map(Object.keys(languages), key => (

@@ -32,18 +32,18 @@ class stackedbarchart extends Component {
 
         xaxis: {
           categories: [
-            "Carburant(gazole)",
+            "Gazole",
             "Taxi",
             "Train",
             "Avion",
             "Péage",
             "Parking",
-            "Carburant(essence)",
+            "Essence",
             "Métro",
             "Restaurant midi",
             "Restaurant soir",
             "Hotel",
-            "equipement",
+            "Equipement",
           ],
           labels: {
             formatter: function (val) {

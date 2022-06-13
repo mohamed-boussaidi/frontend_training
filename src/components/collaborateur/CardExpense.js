@@ -3,35 +3,20 @@ import {AvField, AvForm} from "availity-reactstrap-validation";
 import Select from "react-select";
 import React, {useState,useEffect} from "react";
 import ExpenseService from "../../api/ExpenseService";
+import DepenseService from "../../api/DepenseService";
 import moment from "moment";
 import { useAlert } from 'react-alert'
 
 const CardExpense = (props) => {
+    const [optionstypedepense, setOptionstypedepense] = useState([]);
     const [loading, setLoading] = useState(true);
     const alert = useAlert()
-    const [selectedMultiTypeDepense, setselectedMultiTypeDepense] = useState({label: props.data?props.data.type_depense:null, value: props.data?props.data.type_depense:null})
+    const [selectedMultiTypeDepense, setselectedMultiTypeDepense] = useState({label: props.data?props.data.type_depense_id:null, value: props.data?props.data.type_depense_id:null})
 
     function handleSelectedMultiTypeDepense(type_depense) {
         setselectedMultiTypeDepense(type_depense)
     }
 
-    
-
-
-    const optionGroup1 = [
-        {
-            label: "Type De depense",
-            options: [
-                {label: "Hotel", value: "Hotel"},
-                {label: "Taxi", value: "Taxi"},
-                {label: "Dinner", value: "dinner"},
-                {label: "Péage", value: "Péage"},
-                {label: "Avion", value: "Avion"},
-                {label: "Carburant", value: "Carburant"},
-                {label: "Train", value: "Train"},
-            ]
-        },
-    ]
 
 
     async function addExpenseAction(event, values){
@@ -46,11 +31,28 @@ const CardExpense = (props) => {
                     alert.success('Demande de note de frais a ete enregistré')
                 }
             }catch (e) {
-                alert.error('Error , Demande de conge')
+                alert.error('Error , Demande note de frais ')
             }
         }
+        async function  getTypeDepenseOptions(){
+            var options=[]
+    
+            const response = await DepenseService.Depenses()
+    
+              if(response.status===200){
+                response.data.map((item,index)=>{
+                    options.push({label: item.nom, value: item.id})
+                })
+    
+              }
+              setOptionstypedepense(options)
+    
+    
+          }
+    
       useEffect( () => {
         setLoading(true)
+        getTypeDepenseOptions()
         setLoading(false)
       }, [])
 
@@ -70,7 +72,7 @@ const CardExpense = (props) => {
             >
                 <h4 className="card-title" class="d-flex flex-column align-items-center my-2 bg-primary" >Passer une demande note de frais </h4>
                 <Row>
-                    <Col md="6">
+                <Col md="12">
                         <div className="mb-3 templating-select select2-container">
                             <label className="control-label">type de depense</label>
                             <Select
@@ -78,13 +80,20 @@ const CardExpense = (props) => {
                                 onChange={(e) => {
                                     handleSelectedMultiTypeDepense(e)
                                 }}
-                                options={optionGroup1}n
+                                options={[
+                                    {
+                                        label: "TypeDepense",
+                                        options: optionstypedepense
+                                    },
+                                ]}
                                 classNamePrefix="select2-selection"
                                 closeMenuOnSelect={false}
                             />
                         </div>
     
                     </Col>
+                    </Row>
+                    <Row>
                     <Col md="6">
                         <div className="mb-3">
                             <Label htmlFor="validationCustom01">Client</Label>
@@ -98,26 +107,6 @@ const CardExpense = (props) => {
                                 validate={{ required: { value: true } }}
                                 id="validationCustom01"
                             />
-                        </div>
-                    </Col>
-                </Row>
-                
-                    <Row>
-                    <Col md="6">
-                        <div className="mb-3">
-                            <label
-                                htmlFor="example-date-input"
-                            >
-                                Date de demande
-                            </label>
-                            <div className="col-md-13">
-                                <AvField
-                                    className="form-control"
-                                    type="date"
-                                    name={"date_demande"}
-                                    value={props.data?moment(props.data.date_demande).format("YYYY-MM-DD") :null}
-                                />
-                            </div>
                         </div>
                     </Col>
                     <Col md="6">

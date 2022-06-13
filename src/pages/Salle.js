@@ -76,20 +76,7 @@ const Salle = (props) => {
       sort: "asc",
       width: 100,
     },
-    {
-      title: "Adresse",
-      field: "adresse",
-      sort: "asc",
-      width: 100,
-    },
-
-    {
-      title: "Ville",
-      field: "ville",
-      sort: "asc",
-      width: 100,
-
-    },
+    
   ]
 
   async function activateEditPopup(id){

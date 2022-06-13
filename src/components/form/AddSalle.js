@@ -6,9 +6,8 @@ import React, {useState,useEffect} from "react";
 import {withRouter} from "react-router-dom";
 import SalleService from "../../api/SalleService";
 import ImageCropper from "../ImageCropper";
-import {dataURLtoFile} from "../../utlis/functions";
+import {dataURLtoFile, join_String_save,array_to_select_options_list} from "../../utlis/functions";
 import { useAlert } from 'react-alert'
-
 import moment from "moment";
 
 const AddSalle = (props) => {
@@ -47,14 +46,11 @@ const AddSalle = (props) => {
 
     }
     
-    const [selectedMultiEquipements, setselectedMultiEquipements] = useState({label: props.data?props.data.equipements:null, value: props.data?props.data.equipements:null})
+    const [selectedMultiEquipements, setselectedMultiEquipements] = useState(props.data?array_to_select_options_list(props.data.equipements.split(",")):null)
     function handleSelectedMultiEquipements(equipements) {
         setselectedMultiEquipements(equipements)
     }
-    const [selectedMultiVille, setselectedMultiVille] = useState({label: props.data?props.data.ville:null, value: props.data?props.data.ville:null})
-    function handleSelectedMultiVille(ville) {
-        setselectedMultiVille(ville)
-    }
+    
     const optionGroup1 = [
         {
             label: "Les equipements",
@@ -66,17 +62,7 @@ const AddSalle = (props) => {
             ]
         },
     ]
-    const optionGroup2 = [
-        {
-            label: "Ville",
-            options: [
-                {label: "Tunis", value: "Tunis"},
-                {label: "Paris", value: "Paris"},
-                {label: "Mauris", value: "Mauris"},
-               
-            ]
-        },
-    ]
+   
     async function addSalleAction(event, values){
         var image=null
         if (blob) {
@@ -93,24 +79,36 @@ const AddSalle = (props) => {
             try {
                 values.id=props.data.id
                 values.image=image?image:props.data.image
+                values.equipements=join_String_save(selectedMultiEquipements)
+
                 const response=await SalleService.UpdateSalle(values)
                 if(response.status===200){
                     props.onRefresh()
+                    alert.success('Salle a été modifier avec succés')
+                 
 
                 }
 
             }catch (e) {
+                alert.error('Erreur modification')
 
             }
         }else{
             try {
             
                 values.image=image?image:null
+                values.equipements=join_String_save(selectedMultiEquipements)
+
                 const response=await SalleService.addSalle(values)
                 if(response.status===200){
                     props.onRefresh()
+                    alert.success('Salle a été ajouter avec succés')
+                 
+
                 }
+
             }catch (e) {
+                alert.error('Erreur Salle')
 
             }
         }
@@ -188,10 +186,10 @@ const AddSalle = (props) => {
                         <div className="mb-3">
                             <Label htmlFor="validationCustom01">Nom</Label>
                             <AvField
-                                name="nom"
-                                placeholder="Nombre du jours"
+                                name="nom_du_salle"
+                                placeholder="nom du salle"
                                 type="text"
-                                value={props.data?props.data.nom:null}
+                                value={props.data?props.data.nom_du_salle:null}
                                 errorMessage=" SVP Entrez votre Nombre du jours"
                                 className="form-control"
                                 validate={{ required: { value: true } }}
@@ -199,21 +197,7 @@ const AddSalle = (props) => {
                             />
                         </div>
                     </Col>
-                    <Col md="6">
-                        <div className="mb-3">
-                            <Label htmlFor="validationCustom01">Adresse</Label>
-                            <AvField
-                                name="adresse"
-                                placeholder="Adresse"
-                                type="text"
-                                value={props.data?props.data.adresse:null}
-                                errorMessage=" SVP Entrez l'adresse du salle"
-                                className="form-control"
-                                validate={{ required: { value: true } }}
-                                id="validationCustom01"
-                            />
-                        </div>
-                    </Col>
+                   
                    
                 </Row>
                 
@@ -226,9 +210,11 @@ const AddSalle = (props) => {
                                 onChange={(e) => {
                                     handleSelectedMultiEquipements(e)
                                 }}
+                                isMulti
                                 options={optionGroup1}
                                 classNamePrefix="select2-selection"
                                 closeMenuOnSelect={false}
+                
                             />
                         </div>
     
@@ -251,21 +237,6 @@ const AddSalle = (props) => {
                    
                 </Row>
                 <Row>
-                <Col md="6">
-                       <div className="mb-3 templating-select select2-container">
-                            <label className="control-label">Ville</label>
-                            <Select
-                                value={selectedMultiVille}
-                                onChange={(e) => {
-                                    handleSelectedMultiVille(e)
-                                }}
-                                options={optionGroup2}
-                                classNamePrefix="select2-selection"
-                                closeMenuOnSelect={false}
-                            />
-                        </div>
-    
-                    </Col>
                     <Col md="6">
                         <div className="mb-3">
                             <Label htmlFor="validationCustom01">Etage</Label>

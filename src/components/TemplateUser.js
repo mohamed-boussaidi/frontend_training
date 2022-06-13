@@ -46,7 +46,7 @@ const TemplateUser = props => {
                             </div>
                             <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <button className=" btn btn-primary  bg-transparent border-0 me-md-2 text-danger" onClick={()=>logout()}>
-                                    <i className="mdi mdi-power font-size-17 text-muted align-middle me-1 text-danger"></i><span>Deconnection</span>
+                                    <i className="mdi mdi-power font-size-17 text-muted align-middle me-1 text-danger"></i><span>Deconnexion</span>
                                 </button>
                             </div>
                             <div className="directory-content text-center p-4">
@@ -84,7 +84,7 @@ const TemplateUser = props => {
                 :
                 <></>
             }
-            <footer className="footer-user">
+            <footer className="container footer-user bg-white pb-2">
                 <div className='col-12 text-center'>
                     © {new Date().getFullYear()} SPOC <span className="d-none d-sm-inline-block"> - Fabriquer avec <i
                     className="mdi mdi-heart text-danger"></i> Par Islem.</span>

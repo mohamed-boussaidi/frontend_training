@@ -5,10 +5,11 @@ import React, {useState,useEffect} from "react";
 
 import {withRouter} from "react-router-dom";
 import DepenseService from "../../api/DepenseService";
-
+import { useAlert } from 'react-alert'
 import moment from "moment";
 
 const AddDepense = (props) => {
+    const alert = useAlert() 
     const [depense, setDepense] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -20,10 +21,12 @@ const AddDepense = (props) => {
                 const response=await DepenseService.UpdateDepense(values)
                 if(response.status===200){
                     props.onRefresh()
+                    alert.success(' Conge a été modifier avec succés')
 
                 }
 
             }catch (e) {
+                alert.error('Erreur modification')
 
             }
         }else{
@@ -33,8 +36,12 @@ const AddDepense = (props) => {
                 const response=await DepenseService.adddepense(values)
                 if(response.status===200){
                     props.onRefresh()
+                    alert.success(' Conge a été ajouter avec succés')
+
                 }
+
             }catch (e) {
+                alert.error('Erreur enregistrement')
 
             }
         }

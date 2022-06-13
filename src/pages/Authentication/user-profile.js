@@ -11,9 +11,12 @@ import { setBreadcrumbItems } from "../../store/actions";
 //Import Components
 import CardUser from "./card-user";
 
+import { useLocation } from 'react-router-dom'
 
 
 const PagesDirectory = (props) => {
+    const location = useLocation()
+  const { selecedTab } = location.state?location.state:"1"
 
     const breadcrumbItems = [
         { title: "Lexa", link: "#" },
@@ -25,11 +28,10 @@ const PagesDirectory = (props) => {
         props.setBreadcrumbItems()
     },[])
 
-
     return (
         <React.Fragment>
             <Col lg={12} className={"p-0"}>
-            <CardUser  />           
+            <CardUser selecedTab={selecedTab}/>           
             </Col>
             <MetaTags>
                 <title>Directory | Lexa - Responsive Bootstrap 5 Admin Dashboard</title>

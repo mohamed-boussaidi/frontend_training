@@ -128,7 +128,7 @@ const Depense = (props) => {
                         emptyDataSourceMessage: "Pas d'enregistreent à afficher",
                         addTooltip: 'Ajouter',
                         deleteTooltip: 'Supprimer',
-                        editTooltip: 'Editer',
+                        editTooltip: 'Modifier',
                         filterRow: {
                             filterTooltip: 'Filtrer'
                         },

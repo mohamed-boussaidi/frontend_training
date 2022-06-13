@@ -56,24 +56,11 @@ const ProfileMenu = props => {
           />
         </DropdownToggle>
         <DropdownMenu className="dropdown-menu-end">
-          <DropdownItem tag="a" href="/profile">
-            {" "}
-            <i className="mdi mdi-account-circle font-size-17 text-muted align-middle me-1"/>
-            {props.t("Profile")}{" "}
-          </DropdownItem>
-          <DropdownItem tag="a" href="#">
-            <span className="badge bg-success float-end">11</span>
-            <i className="mdi mdi-cog font-size-17 text-muted align-middle me-1"/>
-            {props.t("Paramètres")}
-          </DropdownItem>
-          <DropdownItem tag="a" href="auth-lock-screen">
-            <i className="mdi mdi-lock-open-outline font-size-17 text-muted align-middle me-1"/>
-            {props.t("Lock screen")}
-          </DropdownItem>
+          
           <div className="dropdown-divider"/>
           <Link to="/logout" className="dropdown-item text-danger">
             <i className="mdi mdi-power font-size-17 text-muted align-middle me-1 text-danger"/>
-            <span>{props.t("Deconnection")}</span>
+            <span>{props.t("Deconnexion")}</span>
           </Link>
         </DropdownMenu>
       </Dropdown>

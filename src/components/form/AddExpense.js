@@ -6,6 +6,8 @@ import React, {useState,useEffect} from "react";
 import {withRouter} from "react-router-dom";
 import ExpenseService from "../../api/ExpenseService";
 import CollaborateurService from "../../api/CollaborateurService";
+import DepenseService from "../../api/DepenseService";
+
 import { useAlert } from 'react-alert'
 
 import moment from "moment";
@@ -14,10 +16,11 @@ const AddExpense = (props) => {
     const alert = useAlert() 
     const [users, setUsers] = useState([]);
     const [optionscollaborateur, setOptionsCollaborateur] = useState([]);
+    const [optionstypedepense, setOptionstypedepense] = useState([]);
     const [loading, setLoading] = useState(true);
 
 
-    const [selectedMultiTypeDepense, setselectedMultiTypeDepense] = useState({label: props.data?props.data.type_depense:null, value: props.data?props.data.type_depense:null})
+    const [selectedMultiTypeDepense, setselectedMultiTypeDepense] = useState({label: props.data?props.data.type_depense_id:null, value: props.data?props.data.type_depense_id:null})
 
     function handleSelectedMultiTypeDepense(type_depense) {
         setselectedMultiTypeDepense(type_depense)
@@ -29,27 +32,14 @@ const AddExpense = (props) => {
     }
 
 
-    const optionGroup1 = [
-        {
-            label: "Type De depense",
-            options: [
-                {label: "Hotel", value: "Hotel"},
-                {label: "Taxi", value: "Taxi"},
-                {label: "Dinner", value: "dinner"},
-                {label: "Péage", value: "Péage"},
-                {label: "Avion", value: "Avion"},
-                {label: "Carburant", value: "Carburant"},
-                {label: "Train", value: "Train"},
-            ]
-        },
-    ]
+  
 
 
     async function addExpenseAction(event, values){
         if(props.data){
             try {
                 values.id=props.data.id
-                values.type_depense=selectedMultiTypeDepense.value
+                values.type_depense_id=selectedMultiTypeDepense.value
                 values.collaborateur_id=selectedMultiCollaborateur.value
 
                 const response=await ExpenseService.UpdateExpense(values)
@@ -65,7 +55,7 @@ const AddExpense = (props) => {
             }
         }else{
             try {
-                values.type_depense=selectedMultiTypeDepense.value
+                values.type_depense_id=selectedMultiTypeDepense.value
                 values.collaborateur_id=selectedMultiCollaborateur.value
                 values.status="pendding"
 
@@ -97,10 +87,27 @@ const AddExpense = (props) => {
 
       }
 
+      async function  getTypeDepenseOptions(){
+        var options=[]
+
+        const response = await DepenseService.Depenses()
+
+          if(response.status===200){
+            response.data.map((item,index)=>{
+                options.push({label: item.nom, value: item.id})
+            })
+
+          }
+          setOptionstypedepense(options)
+
+
+      }
+
 
       useEffect( () => {
         setLoading(true)
         getUsersOptions()
+        getTypeDepenseOptions()
         setLoading(false)
       }, [])
 
@@ -147,7 +154,12 @@ const AddExpense = (props) => {
                                 onChange={(e) => {
                                     handleSelectedMultiTypeDepense(e)
                                 }}
-                                options={optionGroup1}n
+                                options={[
+                                    {
+                                        label: "TypeDepense",
+                                        options: optionstypedepense
+                                    },
+                                ]}
                                 classNamePrefix="select2-selection"
                                 closeMenuOnSelect={false}
                             />

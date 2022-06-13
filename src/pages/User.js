@@ -130,7 +130,7 @@ const User = (props) => {
   const actions = [
     {
       icon: 'edit',
-      tooltip: 'Edit Collaborateur',
+      tooltip: 'Modifier Collaborateur',
       onClick: (event, rowData) => activateEditPopup(rowData.id)
     }
   ]
@@ -197,7 +197,7 @@ const User = (props) => {
                         emptyDataSourceMessage: "Pas d'enregistreent à afficher",
                         addTooltip: 'Ajouter',
                         deleteTooltip: 'Supprimer',
-                        editTooltip: 'Editer',
+                        editTooltip: 'Modifier',
                         filterRow: {
                             filterTooltip: 'Filtrer'
                         },
