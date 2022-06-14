@@ -20,15 +20,15 @@ const AddExpense = (props) => {
     const [loading, setLoading] = useState(true);
 
 
-    const [selectedMultiTypeDepense, setselectedMultiTypeDepense] = useState({label: props.data?props.data.type_depense_id:null, value: props.data?props.data.type_depense_id:null})
+    const [selectedMultiTypeDepense, setselectedMultiTypeDepense] = useState(props.data?props.data.type_depense_id:null)
 
     function handleSelectedMultiTypeDepense(type_depense) {
-        setselectedMultiTypeDepense(type_depense)
+        setselectedMultiTypeDepense(type_depense.value)
     }
-    const [selectedMultiCollaborateur, setselectedMultiCollaborateur] = useState({label: props.data?props.data.collaborateur_id:null, value: props.data?props.data.collaborateur_id:null})
+    const [selectedMultiCollaborateur, setselectedMultiCollaborateur] = useState( props.data?props.data.collaborateur_id:null)
 
     function handleSelectedCollaborateurMulti(collaborateur) {
-        setselectedMultiCollaborateur(collaborateur)
+        setselectedMultiCollaborateur(collaborateur.value)
     }
 
 
@@ -39,8 +39,8 @@ const AddExpense = (props) => {
         if(props.data){
             try {
                 values.id=props.data.id
-                values.type_depense_id=selectedMultiTypeDepense.value
-                values.collaborateur_id=selectedMultiCollaborateur.value
+                values.type_depense_id=selectedMultiTypeDepense
+                values.collaborateur_id=selectedMultiCollaborateur
 
                 const response=await ExpenseService.UpdateExpense(values)
                 if(response.status===200){
@@ -55,8 +55,8 @@ const AddExpense = (props) => {
             }
         }else{
             try {
-                values.type_depense_id=selectedMultiTypeDepense.value
-                values.collaborateur_id=selectedMultiCollaborateur.value
+                values.type_depense_id=selectedMultiTypeDepense
+                values.collaborateur_id=selectedMultiCollaborateur
                 values.status="pendding"
 
                 const response=await ExpenseService.addExpense(values)
@@ -130,7 +130,7 @@ const AddExpense = (props) => {
                         <div className="mb-3 templating-select select2-container">
                             <label className="control-label">Collaborateur</label>
                             <Select
-                                value={selectedMultiCollaborateur}
+                                value={optionscollaborateur.filter(obj => obj.value === selectedMultiCollaborateur)}
                                 onChange={(e) => {
                                     handleSelectedCollaborateurMulti(e)
                                 }}
@@ -150,7 +150,7 @@ const AddExpense = (props) => {
                         <div className="mb-3 templating-select select2-container">
                             <label className="control-label">type de depense</label>
                             <Select
-                                value={selectedMultiTypeDepense}
+                                value={optionstypedepense.filter(obj => obj.value === selectedMultiTypeDepense)}
                                 onChange={(e) => {
                                     handleSelectedMultiTypeDepense(e)
                                 }}
@@ -171,23 +171,6 @@ const AddExpense = (props) => {
                     <Row>
                     <Col md="6">
                         <div className="mb-3">
-                            <label
-                                htmlFor="example-date-input"
-                            >
-                                Date de demande
-                            </label>
-                            <div className="col-md-13">
-                                <AvField
-                                    className="form-control"
-                                    type="date"
-                                    name={"date_demande"}
-                                    value={props.data?moment(props.data.date_demande).format("YYYY-MM-DD") :null}
-                                />
-                            </div>
-                        </div>
-                    </Col>
-                    <Col md="6">
-                        <div className="mb-3">
                             <Label htmlFor="validationCustom01">Total TTC</Label>
                             <AvField
                                 name="total_ttc"
@@ -201,26 +184,23 @@ const AddExpense = (props) => {
                             />
                         </div>
                     </Col>
+                        <Col md="6">
+                            <div className="mb-3">
+                                <Label htmlFor="validationCustom01">Client</Label>
+                                <AvField
+                                    name="client"
+                                    placeholder="Client"
+                                    type="text"
+                                    value={props.data?props.data.client:null}
+                                    errorMessage=" SVP Entrez le client"
+                                    className="form-control"
+                                    validate={{ required: { value: true } }}
+                                    id="validationCustom01"
+                                />
+                            </div>
+                        </Col>
                     </Row>
-                    <Col md="6">
-                        <div className="mb-3">
-                            <Label htmlFor="validationCustom01">Client</Label>
-                            <AvField
-                                name="client"
-                                placeholder="Client"
-                                type="text"
-                                value={props.data?props.data.client:null}
-                                errorMessage=" SVP Entrez le client"
-                                className="form-control"
-                                validate={{ required: { value: true } }}
-                                id="validationCustom01"
-                            />
-                        </div>
-                    </Col>
-                    <Row>
-                 
-                    </Row>
-                
+
                 <Col md="50">
     
                     <FormGroup className="mb-0">
