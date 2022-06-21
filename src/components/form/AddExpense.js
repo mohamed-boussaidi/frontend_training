@@ -13,8 +13,8 @@ import { useAlert } from 'react-alert'
 import moment from "moment";
 
 const AddExpense = (props) => {
-    const alert = useAlert() 
-    const [users, setUsers] = useState([]);
+    const alert = useAlert()
+    const [errors, setErrors] = useState([])
     const [optionscollaborateur, setOptionsCollaborateur] = useState([]);
     const [optionstypedepense, setOptionstypedepense] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -36,7 +36,9 @@ const AddExpense = (props) => {
 
 
     async function addExpenseAction(event, values){
-        if(props.data){
+        if (handleValidation()) {
+
+            if(props.data){
             try {
                 values.id=props.data.id
                 values.type_depense_id=selectedMultiTypeDepense
@@ -67,6 +69,7 @@ const AddExpense = (props) => {
             }catch (e) {
                 alert.error('Erreur note de frais')
             }
+        }
         }
     }
 
@@ -111,7 +114,23 @@ const AddExpense = (props) => {
         setLoading(false)
       }, [])
 
+    function handleValidation() {
+        let errors = [];
+        let formIsValid = true;
 
+        if (!selectedMultiTypeDepense) {
+            formIsValid = false;
+            errors["selectedMultiTypeDepense"] = "SVP Entrez le type de Depense";
+        }
+        if (!selectedMultiCollaborateur) {
+            formIsValid = false;
+            errors["selectedMultiCollaborateur"] = "SVP Entrez le Collaborateur";
+        }
+
+
+        setErrors(errors);
+        return formIsValid;
+    }
 
       if(loading){
         return <loading></loading>
@@ -143,6 +162,8 @@ const AddExpense = (props) => {
                                 classNamePrefix="select2-selection"
                                 closeMenuOnSelect={false}
                             />
+                            <span className="text-danger">{errors['selectedMultiCollaborateur']}</span>
+
                         </div>
     
                     </Col>
@@ -163,6 +184,8 @@ const AddExpense = (props) => {
                                 classNamePrefix="select2-selection"
                                 closeMenuOnSelect={false}
                             />
+                            <span className="text-danger">{errors['selectedMultiTypeDepense']}</span>
+
                         </div>
     
                     </Col>

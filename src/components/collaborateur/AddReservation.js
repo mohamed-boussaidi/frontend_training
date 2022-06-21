@@ -19,12 +19,9 @@ const AddReservation = (props) =>{
     const [start,setStart]=useState(moment(props.start).format("HH:mm:ss"))
     const [end,setEnd]=useState(moment(props.end).format("HH:mm:ss"))
     const [salle_id,setSalle_id]=useState(props.salle_id)
+    const [errors, setErrors] = useState([])
 
-    const breadcrumbItems = [
-        { title: "SPOC", link: "#" },
-        { title: "Forumlaire", link: "#" },
-    ]
-    const [selectedMulti1, setselectedMulti1] = useState([])
+    const [selectedMulti1, setselectedMulti1] = useState(null)
     function handleMulti1(selectedMulti1) {
         setselectedMulti1(selectedMulti1)
     }
@@ -39,7 +36,9 @@ const AddReservation = (props) =>{
     ]
 
     async function addReservation(event, values){
-        const dateStart=moment(props.start).format("YYYY-MM-DD")
+        if (handleValidation()) {
+
+            const dateStart=moment(props.start).format("YYYY-MM-DD")
         const dateEnd=moment(props.end).format("YYYY-MM-DD")
         var startdate=new Date(dateStart+" "+start.toString())
         var enddate=new Date(dateEnd+" "+end.toString())
@@ -56,7 +55,28 @@ const AddReservation = (props) =>{
         }else {
             alert.error('Error , Demande de Reservation du  salle')
         }
+        }
+    }
 
+    function handleValidation() {
+        let errors = [];
+        let formIsValid = true;
+
+        if (!selectedMulti1) {
+            formIsValid = false;
+            errors["selectedMulti1"] = "SVP Entrez le Matériel Disponible";
+        }
+        if (!start) {
+            formIsValid = false;
+            errors["start"] = "SVP Entrez le Date de debut";
+        }
+        if (!end) {
+            formIsValid = false;
+            errors["end"] = "SVP Entrez le Date de fin";
+        }
+
+        setErrors(errors);
+        return formIsValid;
     }
 
     return(
@@ -85,7 +105,7 @@ const AddReservation = (props) =>{
                                 className="mb-3"
                                 placeholder="Enter Nombre des personnes"
                                 type="number"
-                                errorMessage="Enter Nombre des personnes"
+                                errorMessage="SVP Enter Nombre des personnes"
                                 validate={{
                                     required: { value: true },
                                     pattern: {
@@ -112,8 +132,9 @@ const AddReservation = (props) =>{
                                     id="example-time-input"
                                     value={start}
                                     onChange={event => setStart(event.target.value)}
-
                                 />
+                                <span className="text-danger">{errors['start']}</span>
+
                             </div>
 
                         </div>
@@ -132,8 +153,9 @@ const AddReservation = (props) =>{
                                 id="example-time-input"
                                 value={end}
                                 onChange={event => setEnd(event.target.value)}
-
                             />
+                            <span className="text-danger">{errors['end']}</span>
+
                         </div>
                     </Col>
                 </Row>
@@ -151,6 +173,8 @@ const AddReservation = (props) =>{
                                 classNamePrefix="select2-selection"
                                 closeMenuOnSelect={false}
                             />
+                            <span className="text-danger">{errors['selectedMulti1']}</span>
+
                         </div>
 
                     </Col>

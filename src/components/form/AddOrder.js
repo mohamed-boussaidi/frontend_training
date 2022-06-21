@@ -15,11 +15,8 @@ const AddOrder = (props) => {
     const [loading, setLoading] = useState(true);
 
 
-    const [selectedMultiTypeDepense, setselectedMultiTypeDepense] = useState({label: props.data?props.data.type_depense:null, value: props.data?props.data.type_depense:null})
 
-    function handleSelectedMultiTypeDepense(type_depense) {
-        setselectedMultiTypeDepense(type_depense)
-    }
+
     const [selectedMultiCollaborateur, setselectedMultiCollaborateur] = useState({label: props.data?props.data.collaborateur_id:null, value: props.data?props.data.collaborateur_id:null})
 
     function handleSelectedCollaborateurMulti(collaborateur) {
@@ -89,7 +86,6 @@ const AddOrder = (props) => {
           }
           setOptionsCollaborateur(options)
 
-
       }
 
 
@@ -98,7 +94,6 @@ const AddOrder = (props) => {
         getUsersOptions()
         setLoading(false)
       }, [])
-
 
 
       if(loading){
@@ -132,21 +127,7 @@ const AddOrder = (props) => {
                         </div>
     
                     </Col>
-                    <Col md="6">
-                        <div className="mb-3 templating-select select2-container">
-                            <label className="control-label">type de depense</label>
-                            <Select
-                                value={selectedMultiTypeDepense}
-                                onChange={(e) => {
-                                    handleSelectedMultiTypeDepense(e)
-                                }}
-                                options={optionGroup1}
-                                classNamePrefix="select2-selection"
-                                closeMenuOnSelect={false}
-                            />
-                        </div>
-    
-                    </Col>
+
                 </Row>
                 
                     <Row>
@@ -167,39 +148,8 @@ const AddOrder = (props) => {
                             </div>
                         </div>
                     </Col>
-                    <Col md="6">
-                        <div className="mb-3">
-                            <Label htmlFor="validationCustom01">Total TTC</Label>
-                            <AvField
-                                name="total_ttc"
-                                placeholder="Total TTC"
-                                type="text"
-                                value={props.data?props.data.total_ttc:null}
-                                errorMessage=" SVP Entrez le total TTC"
-                                className="form-control"
-                                validate={{ required: { value: true } }}
-                                id="validationCustom01"
-                            />
-                        </div>
-                    </Col>
-                    </Row>
-                    <Col md="6">
-                        <div className="mb-3">
-                            <Label htmlFor="validationCustom01">Client</Label>
-                            <AvField
-                                name="client"
-                                placeholder="Client"
-                                type="text"
-                                value={props.data?props.data.client:null}
-                                errorMessage=" SVP Entrez le client"
-                                className="form-control"
-                                validate={{ required: { value: true } }}
-                                id="validationCustom01"
-                            />
-                        </div>
-                    </Col>
-                    <Row>
-                 
+
+
                     </Row>
                 
                 <Col md="50">

@@ -6,16 +6,15 @@ import React, {useState,useEffect} from "react";
 import {withRouter} from "react-router-dom";
 import DepenseService from "../../api/DepenseService";
 import { useAlert } from 'react-alert'
-import moment from "moment";
 
 const AddDepense = (props) => {
-    const alert = useAlert() 
-    const [depense, setDepense] = useState([]);
+    const alert = useAlert()
     const [loading, setLoading] = useState(true);
 
 
     async function addDepenseAction(event, values){
-        if(props.data){
+
+            if(props.data){
             try {
                 values.id=props.data.id
                 const response=await DepenseService.UpdateDepense(values)
@@ -92,7 +91,7 @@ const AddDepense = (props) => {
                             placeholder="Nom"
                             type="text"
                             value={props.data?props.data.nom:null}
-                            errorMessage=" SVP Entrez le nom du type ."
+                            errorMessage=" SVP Entrez le nom du type de deponse ."
                             className="form-control"
                             validate={{ required: { value: true } }}
                             id="validationCustom03"
